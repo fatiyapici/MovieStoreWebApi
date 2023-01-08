@@ -42,7 +42,7 @@ namespace MovieStoreWebApi.DbOperations
 
             modelBuilder.Entity<MovieDirector>()
                 .HasKey(ma => new { ma.MovieId, ma.DirectorId });
-            
+
             modelBuilder.Entity<MovieDirector>()
                 .HasOne(md => md.Movie)
                 .WithMany(m => m.Directors)
@@ -55,7 +55,7 @@ namespace MovieStoreWebApi.DbOperations
 
             modelBuilder.Entity<CustomerGenre>()
                 .HasKey(cg => new { cg.CustomerId, cg.GenreId });
-            
+
             modelBuilder.Entity<CustomerGenre>()
                 .HasOne(cg => cg.Customer)
                 .WithMany(c => c.FavoriteGenres)
@@ -63,7 +63,7 @@ namespace MovieStoreWebApi.DbOperations
 
             modelBuilder.Entity<MovieGenre>()
                 .HasKey(mg => new { mg.MovieId, mg.GenreId });
-            
+
             modelBuilder.Entity<MovieGenre>()
                 .HasOne(mg => mg.Movie)
                 .WithMany(g => g.Genres)

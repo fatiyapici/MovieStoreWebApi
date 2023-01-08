@@ -7,9 +7,9 @@ namespace MovieStoreWebApi.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Name { get; set; }
-        public ICollection<MovieDirector> Directors { get; set; }
         public decimal Price { get; set; }
         public DateTime ReleaseDate { get; set; }
+        public ICollection<MovieDirector> Directors { get; set; }
         public virtual ICollection<MovieGenre> Genres { get; set; }
         public virtual ICollection<MovieActor> Actors { get; set; }
     }

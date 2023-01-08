@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using MovieStoreWebApi.Applications.DirectorOperations.GetDirectors;
 using MovieStoreWebApi.DbOperations;
 
 namespace MovieStoreWebApi.Controllers.Queries.GetMovies
@@ -15,18 +16,20 @@ namespace MovieStoreWebApi.Controllers.Queries.GetMovies
             _mapper = mapper;
         }
 
-        // public List<MovieViewModel> Handle()
-        // {
-        //     var movieList = _dbContext.Movies.Include(x => x.GenreId).OrderBy(x => x.Id).ToList();
-        //     List<MovieViewModel> vm = _mapper.Map<List<MovieViewModel>>(movieList);
-        //     return vm;
-        // }
+        public List<MoviesViewModel> Handle()
+        {
+            var movieList = _dbContext.Movies.Include(x => x.Genres).OrderBy(x => x.Id).ToList();
+            List<MoviesViewModel> vm = _mapper.Map<List<MoviesViewModel>>(movieList);
+            return vm;
+        }
     }
 
-    public class MovieViewModel
+    public class MoviesViewModel
     {
         public string Name { get; set; }
-        public int MyProperty { get; set; }
+        public decimal Price { get; set; }
+        public string ReleaseDate { get; set; }
+        public List<DirectorsViewModel> Directors { get; set; }
     }
 }
 

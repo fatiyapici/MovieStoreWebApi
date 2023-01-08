@@ -9,7 +9,6 @@ namespace MovieStoreWebApi.Entities
         public int PersonId { get; set; }
         public Person Person { get; set; }
         public virtual ICollection<MovieDirector> DirectedMovies { get; set; }
-
     }
 
     public class MovieDirector
