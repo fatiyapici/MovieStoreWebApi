@@ -1,6 +1,5 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using MovieStoreWebApi.Applications.DirectorOperations.GetDirectors;
 using MovieStoreWebApi.DbOperations;
 
 namespace MovieStoreWebApi.Controllers.Queries.GetMovies
@@ -18,7 +17,11 @@ namespace MovieStoreWebApi.Controllers.Queries.GetMovies
 
         public List<MoviesViewModel> Handle()
         {
-            var movieList = _dbContext.Movies.Include(x => x.Genres).OrderBy(x => x.Id).ToList();
+            var movieList = _dbContext.Movies
+            .Include(g => g.Genres).ThenInclude(g => g.Genre)
+            .Include(a => a.Actors).ThenInclude(a => a.Actor).ThenInclude(p => p.Person)
+            .OrderBy(x => x.Id).ToList();
+
             List<MoviesViewModel> vm = _mapper.Map<List<MoviesViewModel>>(movieList);
             return vm;
         }
@@ -29,7 +32,8 @@ namespace MovieStoreWebApi.Controllers.Queries.GetMovies
         public string Name { get; set; }
         public decimal Price { get; set; }
         public string ReleaseDate { get; set; }
-        public List<DirectorsViewModel> Directors { get; set; }
+        public List<string> Actors { get; set; }
+        public List<string> Genres { get; set; }
     }
 }
 

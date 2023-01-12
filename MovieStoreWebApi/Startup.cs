@@ -2,6 +2,7 @@ using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using MovieStoreWebApi.DbOperations;
+using Microsoft.EntityFrameworkCore.Proxies;
 
 namespace MovieStoreWebApi;
 
@@ -21,9 +22,10 @@ public class Startup
         services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
-        });
+        });             
 
-        services.AddDbContext<MovieStoreDbContext>(options => options.UseInMemoryDatabase(databaseName: "MovieStoreDB"));
+        services.AddDbContext<MovieStoreDbContext>(options => options
+            .UseInMemoryDatabase(databaseName: "MovieStoreDB"));
         services.AddScoped<IMovieStoreDbContext>(provider => provider.GetService<MovieStoreDbContext>());
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
         //services.AddSingleton<ILoggerService, DbLogger>();

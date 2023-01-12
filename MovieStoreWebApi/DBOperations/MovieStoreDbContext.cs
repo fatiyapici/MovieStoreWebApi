@@ -27,6 +27,7 @@ namespace MovieStoreWebApi.DbOperations
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<MovieActor>()
                 .HasKey(ma => new { ma.MovieId, ma.ActorId });
 
@@ -37,7 +38,7 @@ namespace MovieStoreWebApi.DbOperations
 
             modelBuilder.Entity<MovieActor>()
                 .HasOne(ma => ma.Actor)
-                .WithMany(a => a.Movies)
+                .WithMany()
                 .HasForeignKey(ma => ma.ActorId);
 
             modelBuilder.Entity<MovieDirector>()
@@ -66,15 +67,17 @@ namespace MovieStoreWebApi.DbOperations
 
             modelBuilder.Entity<MovieGenre>()
                 .HasOne(mg => mg.Movie)
-                .WithMany(g => g.Genres)
+                .WithMany(m => m.Genres)
                 .HasForeignKey(mg => mg.MovieId);
+
+            modelBuilder.Entity<MovieGenre>()
+                .HasOne(mg => mg.Genre)
+                .WithMany()
+                .HasForeignKey(mg => mg.GenreId);
 
             modelBuilder.Entity<Customer>()
                 .HasMany(x => x.Orders)
                 .WithOne(x => x.Customer);
-
-
         }
-
     }
 }

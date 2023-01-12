@@ -55,18 +55,6 @@ namespace MovieStoreWebApi.DbOperations
                     },
                     new Person
                     {
-                        // theGodfather actor
-                        Name = "Marlon",
-                        Surname = "Brando"
-                    },
-                    new Person
-                    {
-                        // theGodfather actor
-                        Name = "Al",
-                        Surname = "Pacino"
-                    },
-                    new Person
-                    {
                         // fightClub actor
                         Name = "Bradd",
                         Surname = "Pitt"
@@ -76,6 +64,18 @@ namespace MovieStoreWebApi.DbOperations
                         // fightClub actor
                         Name = "Edward",
                         Surname = "Norton"
+                    },
+                    new Person
+                    {
+                        // theGodfather actor
+                        Name = "Marlon",
+                        Surname = "Brando"
+                    },
+                    new Person
+                    {
+                        // theGodfather actor
+                        Name = "Al",
+                        Surname = "Pacino"
                     },
                     new Person
                     {
@@ -96,7 +96,7 @@ namespace MovieStoreWebApi.DbOperations
                 // --- ACTOR ---
 
                 var persons = context.Persons.ToList();
-                for (int i = 4; i < persons.Count; i++)
+                for (int i = 3; i < persons.Count; i++)
                 {
                     var actor = new Actor
                     {
@@ -157,106 +157,71 @@ namespace MovieStoreWebApi.DbOperations
 
                 var actors = context.Actors.ToList();
 
-                // List<Actor> interstellarCast = new List<Actor>();
-                // interstellarCast.Add(actors.First(x => x.Id == 5));
-                // interstellarCast.Add(actors.First(x => x.Id == 6));
-
-                // List<Actor> fightClubCast = new List<Actor>();
-                // fightClubCast.Add(actors.First(x => x.Id == 9));
-                // fightClubCast.Add(actors.First(x => x.Id == 10));
-
-                // List<Actor> theGodfatherCast = new List<Actor>();
-                // theGodfatherCast.Add(actors.First(x => x.Id == 7));
-                // theGodfatherCast.Add(actors.First(x => x.Id == 8));
-
-                // List<Actor> goraCast = new List<Actor>();
-                // goraCast.Add(actors.First(x => x.Id == 4));
-                // goraCast.Add(actors.First(x => x.Id == 11));
-                // goraCast.Add(actors.First(x => x.Id == 12));
-
                 context.Movies.AddRange(
                     new Movie
                     {
                         Id = 1,
                         Name = "Interstellar",
-                        // Casts = interstellarCast,
                         Price = 19.99m,
-                        ReleaseDate = new DateTime(2014)
+                        ReleaseDate = new DateTime(2014, 1, 1)
                     },
                    new Movie
                    {
                        Id = 2,
                        Name = "Fight Club",
-                    //    Casts = fightClubCast,
                        Price = 14.99m,
-                       ReleaseDate = new DateTime(1999)
+                       ReleaseDate = new DateTime(1999, 1, 1)
+
                    },
                    new Movie
                    {
                        Id = 3,
                        Name = "The Godfather",
-                    //    Casts = theGodfatherCast,
                        Price = 14.99m,
-                       ReleaseDate = new DateTime(1972)
+                       ReleaseDate = new DateTime(1972, 1, 1)
                    },
                    new Movie
                    {
                        Id = 4,
                        Name = "GORA",
-                    //    Casts = goraCast,
                        Price = 9.99m,
-                       ReleaseDate = new DateTime(2004)
+                       ReleaseDate = new DateTime(2004, 1, 1)
                    }
                );
 
                 #endregion
-                
+
                 context.SaveChanges();
 
                 #region Many2Many Movies-Genres
 
-                context.MovieGenres.AddRange(new MovieGenre(){ MovieId = 1, GenreId = 1},
-                   new MovieGenre(){ MovieId = 1, GenreId = 2});
+                context.MovieGenres.AddRange(
+                    new MovieGenre() { MovieId = 1, GenreId = 1 },
+                    new MovieGenre() { MovieId = 1, GenreId = 2 },
 
-                // context.MovieGenres.AddRange(
-                //     
-                //     
-                //     new MovieGenre()
-                //     {
-                //         MovieId = 2,
-                //         GenreId = 1
-                //     },
-                //     new MovieGenre()
-                //     {
-                //         MovieId = 2,
-                //         GenreId = 3
-                //     },
-                //     new MovieGenre()
-                //     {
-                //         MovieId = 2,
-                //         GenreId = 4
-                //     },
-                //     new MovieGenre()
-                //     {
-                //         MovieId = 3,
-                //         GenreId = 3
-                //     },
-                //     new MovieGenre()
-                //     {
-                //         MovieId = 3,
-                //         GenreId = 4
-                //     },
-                //     new MovieGenre()
-                //     {
-                //         MovieId = 4,
-                //         GenreId = 5
-                //     },
-                //     new MovieGenre()
-                //     {
-                //         MovieId = 4,
-                //         GenreId = 6
-                //     }
-                // );
+                    new MovieGenre() { MovieId = 2, GenreId = 1 },
+                    new MovieGenre() { MovieId = 2, GenreId = 3 },
+                    new MovieGenre() { MovieId = 2, GenreId = 4 },
+
+                    new MovieGenre() { MovieId = 3, GenreId = 3 },
+                    new MovieGenre() { MovieId = 3, GenreId = 4 },
+
+                    new MovieGenre() { MovieId = 4, GenreId = 5 },
+                    new MovieGenre() { MovieId = 4, GenreId = 6 }
+                    );
+
+                #endregion
+
+                context.SaveChanges();
+
+                #region DirectorsInMovies
+
+                context.MovieDirectors.AddRange(
+                    new MovieDirector() { MovieId = 1, DirectorId = 1 },
+                    new MovieDirector() { MovieId = 2, DirectorId = 2 },
+                    new MovieDirector() { MovieId = 3, DirectorId = 3 },
+                    new MovieDirector() { MovieId = 4, DirectorId = 4 }
+                    );
 
                 #endregion
 
@@ -264,65 +229,20 @@ namespace MovieStoreWebApi.DbOperations
 
                 #region ActorsInMovies
 
-                // bunun karşılığı bu
-                //     new ActorMovie
-                //  {
-                //      ActorId = 5,
-                //      MovieId = 1
-                //  },
-                //  new ActorMovie
-                //  {
-                //      ActorId = 6,
-                //      MovieId = 1
-                //  },
+                context.MovieActors.AddRange(
+                    new MovieActor() { MovieId = 1, ActorId = 2 },
+                    new MovieActor() { MovieId = 1, ActorId = 3 },
 
-                context.MovieActors.AddRange(new MovieActor(){MovieId = 1, ActorId = 1},
-                    new MovieActor(){MovieId = 1, ActorId = 2});
+                    new MovieActor() { MovieId = 2, ActorId = 4 },
+                    new MovieActor() { MovieId = 2, ActorId = 5 },
 
-                // context.ActorMovies.AddRange(
-                //  new ActorMovie
-                //  {
-                //      ActorId = 5,
-                //      MovieId = 1
-                //  },
-                //  new ActorMovie
-                //  {
-                //      ActorId = 6,
-                //      MovieId = 1
-                //  },
-                //  new ActorMovie
-                //  {
-                //      ActorId = 7,
-                //      MovieId = 3
-                //  },
-                //  new ActorMovie
-                //  {
-                //      ActorId = 8,
-                //      MovieId = 3
-                //  },
-                //  new ActorMovie
-                //  {
-                //      ActorId = 9,
-                //      MovieId = 2
-                //  },
-                //  new ActorMovie
-                //  {
-                //      ActorId = 10,
-                //      MovieId = 2
-                //  }, new ActorMovie
-                //  {
-                //      ActorId = 11,
-                //      MovieId = 4
-                //  }, new ActorMovie
-                //  {
-                //      ActorId = 12,
-                //      MovieId = 4
-                //  }, new ActorMovie
-                //  {
-                //      ActorId = 4,
-                //      MovieId = 4
-                //  }
-                //  );
+                    new MovieActor() { MovieId = 3, ActorId = 6 },
+                    new MovieActor() { MovieId = 3, ActorId = 7 },
+
+                    new MovieActor() { MovieId = 4, ActorId = 1 },
+                    new MovieActor() { MovieId = 4, ActorId = 8 },
+                    new MovieActor() { MovieId = 4, ActorId = 9 }
+                    );
 
                 #endregion
 

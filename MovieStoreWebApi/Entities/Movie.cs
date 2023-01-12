@@ -9,7 +9,7 @@ namespace MovieStoreWebApi.Entities
         public string Name { get; set; }
         public decimal Price { get; set; }
         public DateTime ReleaseDate { get; set; }
-        public ICollection<MovieDirector> Directors { get; set; }
+        public virtual ICollection<MovieDirector> Directors { get; set; }
         public virtual ICollection<MovieGenre> Genres { get; set; }
         public virtual ICollection<MovieActor> Actors { get; set; }
     }
@@ -17,8 +17,16 @@ namespace MovieStoreWebApi.Entities
     public class MovieGenre
     {
         public int MovieId { get; set; }
-        public Movie Movie { get; set; }
+        public virtual Movie Movie { get; set; }
         public int GenreId { get; set; }
-        public Genre Genre { get; set; }
+        public virtual Genre Genre { get; set; }
+    }
+
+    public class MovieActor
+    {
+        public int ActorId { get; set; }
+        public virtual Actor Actor { get; set; }
+        public int MovieId { get; set; }
+        public virtual Movie Movie { get; set; }
     }
 }
