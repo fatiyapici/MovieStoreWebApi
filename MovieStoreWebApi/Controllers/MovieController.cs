@@ -1,9 +1,11 @@
 using AutoMapper;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using MovieStoreWebApi.Applications.MovieOperations.Commands.CreateMovie;
 using MovieStoreWebApi.Applications.MovieOperations.Queries.GetMovieDetail;
 using MovieStoreWebApi.Controllers.Queries.GetMovies;
 using MovieStoreWebApi.DbOperations;
+using static MovieStoreWebApi.Applications.MovieOperations.Commands.CreateMovie.CreateMovieCommand;
 
 namespace MovieStoreWebApi.Controllers;
 
@@ -28,18 +30,29 @@ public class MovieController : ControllerBase
 
         return Ok(result);
     }
-    
+
     [HttpGet("{id}")]
     public IActionResult GetById(int id)
     {
         MovieDetailViewModel result;
         GetMovieDetailQuery query = new GetMovieDetailQuery(_context, _mapper);
         query.MovieId = id;
-        
+
         GetMovieDetailQueryValidator validator = new GetMovieDetailQueryValidator();
         validator.ValidateAndThrow(query);
         result = query.Handle();
 
         return Ok(result);
+    }
+
+    [HttpPost]
+    public IActionResult AddMovie([FromBody] CreateMovieModel newMovie)
+    {
+        CreateMovieCommand command = new CreateMovieCommand(_context, _mapper);
+        command.Model = newMovie;
+        CreateMovieCommandValidator validator = new CreateMovieCommandValidator();
+        validator.ValidateAndThrow(command);
+        command.Handle();
+        return Ok();
     }
 }

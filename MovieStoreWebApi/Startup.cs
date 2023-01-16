@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using MovieStoreWebApi.DbOperations;
 using Microsoft.EntityFrameworkCore.Proxies;
+using WebApi.Common;
 
 namespace MovieStoreWebApi;
 
@@ -27,7 +28,7 @@ public class Startup
         services.AddDbContext<MovieStoreDbContext>(options => options
             .UseInMemoryDatabase(databaseName: "MovieStoreDB"));
         services.AddScoped<IMovieStoreDbContext>(provider => provider.GetService<MovieStoreDbContext>());
-        services.AddAutoMapper(Assembly.GetExecutingAssembly());
+        services.AddAutoMapper(typeof(MappingProfile));
         //services.AddSingleton<ILoggerService, DbLogger>();
     }
 

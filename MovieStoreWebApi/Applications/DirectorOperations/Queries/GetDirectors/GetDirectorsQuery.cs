@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using MovieStoreWebApi.DbOperations;
 
 namespace MovieStoreWebApi.Applications.DirectorOperations.GetDirectors
@@ -15,9 +16,9 @@ namespace MovieStoreWebApi.Applications.DirectorOperations.GetDirectors
         }
         public List<DirectorsViewModel> Handle()
         {
-            var directors = _context.Directors;
-            List<DirectorsViewModel> directorsList = _mapper.Map<List<DirectorsViewModel>>(directors);
-            return directorsList;
+            var directors = _context.Directors.Include(x => x.Person).ToList();
+            var directorViewModels = _mapper.Map<List<DirectorsViewModel>>(directors);
+            return directorViewModels;
         }
     }
     public class DirectorsViewModel
