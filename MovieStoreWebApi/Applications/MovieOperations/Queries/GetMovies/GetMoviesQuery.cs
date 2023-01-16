@@ -19,6 +19,7 @@ namespace MovieStoreWebApi.Controllers.Queries.GetMovies
         {
             var movieList = _dbContext.Movies
             .Include(g => g.Genres).ThenInclude(g => g.Genre)
+            .Include(a => a.Directors).ThenInclude(a => a.Director).ThenInclude(p => p.Person)
             .Include(a => a.Actors).ThenInclude(a => a.Actor).ThenInclude(p => p.Person)
             .OrderBy(x => x.Id).ToList();
 
@@ -32,6 +33,7 @@ namespace MovieStoreWebApi.Controllers.Queries.GetMovies
         public string Name { get; set; }
         public decimal Price { get; set; }
         public string ReleaseDate { get; set; }
+        public List<string> Directors { get; set; }
         public List<string> Actors { get; set; }
         public List<string> Genres { get; set; }
     }

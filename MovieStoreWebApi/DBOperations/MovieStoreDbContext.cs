@@ -42,7 +42,7 @@ namespace MovieStoreWebApi.DbOperations
                 .HasForeignKey(ma => ma.ActorId);
 
             modelBuilder.Entity<MovieDirector>()
-                .HasKey(ma => new { ma.MovieId, ma.DirectorId });
+                .HasKey(md => new { md.MovieId, md.DirectorId });
 
             modelBuilder.Entity<MovieDirector>()
                 .HasOne(md => md.Movie)

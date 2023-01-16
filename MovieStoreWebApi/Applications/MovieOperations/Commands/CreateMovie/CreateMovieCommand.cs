@@ -18,10 +18,9 @@ namespace MovieStoreWebApi.Applications.MovieOperations.Commands.CreateMovie
         public void Handle()
         {
             var movie = _dbContext.Movies.SingleOrDefault(x => x.Name == Model.Name);
-            if (movie is not null)
+            if (movie != null)
                 throw new InvalidOperationException("Film zaten mevcut.");
             movie = _mapper.Map<Movie>(Model);
-
 
             if (Model.Directors != null)
             {
@@ -31,12 +30,14 @@ namespace MovieStoreWebApi.Applications.MovieOperations.Commands.CreateMovie
                     var director = _dbContext.Directors.SingleOrDefault(x => x.Id == directorId);
                     if (director == null)
                         continue;
-
-                    movie.Directors.Add(new MovieDirector()
+                    if (!movie.Directors.Any(d => d.DirectorId == director.Id))
                     {
-                        MovieId = movie.Id,
-                        DirectorId = director.Id
-                    });
+                        movie.Directors.Add(new MovieDirector()
+                        {
+                            MovieId = movie.Id,
+                            DirectorId = director.Id
+                        });
+                    }
                 }
             }
 

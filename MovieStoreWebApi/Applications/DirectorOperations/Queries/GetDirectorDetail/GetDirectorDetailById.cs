@@ -11,14 +11,14 @@ namespace MovieStoreWebApi.Applications.DirectorOperations.Queries.GetDirectorDe
         {
             _context = context;
         }
-        public DirectorViewModel Handle()
+        public DirectorDetailViewModel Handle()
         {
             var director = _context.Directors.Include(x => x.Person).SingleOrDefault(x => x.Id == DirectorId);
             if (director is null)
             {
                 return null;
             }
-            var directorViewModel = new DirectorViewModel
+            var directorViewModel = new DirectorDetailViewModel
             {
                 Id = director.Id,
                 Name = director.Person.Name,
@@ -26,7 +26,7 @@ namespace MovieStoreWebApi.Applications.DirectorOperations.Queries.GetDirectorDe
             };
             return directorViewModel;
         }
-        public class DirectorViewModel
+        public class DirectorDetailViewModel
         {
             public int Id { get; set; }
             public string Name { get; set; }

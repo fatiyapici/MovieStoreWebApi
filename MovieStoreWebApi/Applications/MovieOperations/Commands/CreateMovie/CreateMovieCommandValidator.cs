@@ -6,12 +6,9 @@ namespace MovieStoreWebApi.Applications.MovieOperations.Commands.CreateMovie
     {
         public CreateMovieCommandValidator()
         {
-            RuleFor(command => command.Model.Name).NotEmpty().MinimumLength(1);
-            RuleFor(command => command.Model.Price).NotEmpty().GreaterThanOrEqualTo(0);
-            RuleFor(command => command.Model.ReleaseDate).NotEmpty();
-            // RuleFor(command => command.Model.Genres).NotEmpty();
-            // RuleFor(command => command.Model.Directors).NotEmpty();
-            // RuleFor(command => command.Model.Actors).NotEmpty();
+            RuleFor(x => x.Model.Name).NotEmpty().WithMessage("Film adi boş olamaz.");
+            RuleFor(x => x.Model.Price).GreaterThan(0).WithMessage("Film fiyati 0'dan büyük olmalidir.");
+            RuleFor(x => x.Model.ReleaseDate).NotEmpty().WithMessage("Film yayin tarihi boş olamaz.");
         }
     }
 }
