@@ -1,8 +1,6 @@
-using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using MovieStoreWebApi.DbOperations;
-using Microsoft.EntityFrameworkCore.Proxies;
 using WebApi.Common;
 
 namespace MovieStoreWebApi;
