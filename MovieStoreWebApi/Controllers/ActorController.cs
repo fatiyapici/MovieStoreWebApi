@@ -36,7 +36,7 @@ public class ActorController : ControllerBase
     [HttpGet("{id}")]
     public IActionResult GetActorById(int id)
     {
-        GetActorDetailQuery query = new GetActorDetailQuery(_context, _mapper);
+        GetActorDetailById query = new GetActorDetailById(_context, _mapper);
         query.ActorId = id;
         var result = query.Handle();
 

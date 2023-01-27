@@ -7,7 +7,7 @@ using MovieStoreWebApi.Applications.MovieOperations.Queries.GetMovieDetail;
 using MovieStoreWebApi.Controllers.Queries.GetMovies;
 using MovieStoreWebApi.Entities;
 using static MovieStoreWebApi.ActorOperations.Commands.CreateActor.CreateActorCommand;
-using static MovieStoreWebApi.ActorOperations.Queries.GetActorDetail.GetActorDetailQuery;
+using static MovieStoreWebApi.ActorOperations.Queries.GetActorDetail.GetActorDetailById;
 using static MovieStoreWebApi.ActorOperations.Queries.GetActors.GetActorsQuery;
 using static MovieStoreWebApi.Applications.DirectorOperations.Queries.GetDirectorDetailById.GetDirectorDetailById;
 using static MovieStoreWebApi.Applications.MovieOperations.Commands.CreateMovie.CreateMovieCommand;
@@ -76,6 +76,16 @@ namespace WebApi.Common
 
             #region ActorMaps
 
+            //GetActors
+            CreateMap<Actor, ActorsViewModel>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Person.Name))
+                .ForMember(dest => dest.Surname, opt => opt.MapFrom(src => src.Person.Surname));
+
+            //GetActorsDetail
+            CreateMap<Actor, GetActorDetailViewModel>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Person.Name))
+                .ForMember(dest => dest.Surname, opt => opt.MapFrom(src => src.Person.Name));
+
             //CreateActor
             CreateMap<CreateActorModel, Person>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
@@ -87,15 +97,7 @@ namespace WebApi.Common
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Surname, opt => opt.MapFrom(src => src.Surname));
 
-            //GetActors
-            CreateMap<MovieActor, ActorsViewModel>().ReverseMap();
-
-            //GetActorsDetail
-            CreateMap<MovieActor, GetActorDetailViewModel>().ReverseMap();
-
             #endregion
-
-
         }
     }
 }
