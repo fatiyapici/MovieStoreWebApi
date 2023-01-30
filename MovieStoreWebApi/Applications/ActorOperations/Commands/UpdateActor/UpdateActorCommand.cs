@@ -4,7 +4,7 @@ namespace MovieStoreWebApi.Applications.DirectorOperations.Commands.UpdateActor
 {
     public class UpdateActorCommand
     {
-        public UpdateActorModel Model { get; set; }
+        public UpdateActorViewModel Model { get; set; }
         public int Id { get; set; }
         private readonly IMovieStoreDbContext _context;
         public UpdateActorCommand(IMovieStoreDbContext context, int id)
@@ -25,7 +25,7 @@ namespace MovieStoreWebApi.Applications.DirectorOperations.Commands.UpdateActor
             _context.SaveChanges();
         }
     }
-    public class UpdateActorModel
+    public class UpdateActorViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

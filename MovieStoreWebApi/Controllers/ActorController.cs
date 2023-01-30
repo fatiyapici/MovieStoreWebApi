@@ -44,7 +44,7 @@ public class ActorController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult AddActor([FromBody] CreateActorModel newActor)
+    public IActionResult AddActor([FromBody] CreateActorViewModel newActor)
     {
         CreateActorCommand command = new CreateActorCommand(_context, _mapper);
         command.Model = newActor;
@@ -53,7 +53,7 @@ public class ActorController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public IActionResult UpdateActor(int id, [FromBody] UpdateActorModel updateActor)
+    public IActionResult UpdateActor(int id, [FromBody] UpdateActorViewModel updateActor)
     {
         UpdateActorCommand command = new UpdateActorCommand(_context, id);
         command.Id = id;

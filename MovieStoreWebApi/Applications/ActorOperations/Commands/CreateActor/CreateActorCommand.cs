@@ -6,7 +6,7 @@ namespace MovieStoreWebApi.ActorOperations.Commands.CreateActor
 {
     public class CreateActorCommand
     {
-        public CreateActorModel Model { get; set; }
+        public CreateActorViewModel Model { get; set; }
         private readonly IMovieStoreDbContext _dbContext;
         private readonly IMapper _mapper;
         public CreateActorCommand(IMovieStoreDbContext dbContext, IMapper mapper)
@@ -25,7 +25,7 @@ namespace MovieStoreWebApi.ActorOperations.Commands.CreateActor
             _dbContext.SaveChanges();
         }
 
-        public class CreateActorModel
+        public class CreateActorViewModel
         {
             public string Name { get; set; }
             public string Surname { get; set; }

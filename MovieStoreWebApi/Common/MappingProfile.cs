@@ -3,6 +3,7 @@ using MovieStoreWebApi.Applications.DirectorOperations.Commands.CreateDirector;
 using MovieStoreWebApi.Applications.DirectorOperations.Commands.UpdateActor;
 using MovieStoreWebApi.Applications.DirectorOperations.Commands.UpdateDirector;
 using MovieStoreWebApi.Applications.DirectorOperations.GetDirectors;
+using MovieStoreWebApi.Applications.GenreOperations.Commands.UpdateGenre;
 using MovieStoreWebApi.Applications.MovieOperations.Queries.GetMovieDetail;
 using MovieStoreWebApi.Controllers.Queries.GetMovies;
 using MovieStoreWebApi.Entities;
@@ -10,7 +11,10 @@ using static MovieStoreWebApi.ActorOperations.Commands.CreateActor.CreateActorCo
 using static MovieStoreWebApi.ActorOperations.Queries.GetActorDetail.GetActorDetailById;
 using static MovieStoreWebApi.ActorOperations.Queries.GetActors.GetActorsQuery;
 using static MovieStoreWebApi.Applications.DirectorOperations.Queries.GetDirectorDetailById.GetDirectorDetailById;
+using static MovieStoreWebApi.Applications.GenreOperations.Queries.GetGenreDetailById.GetGenreDetailById;
 using static MovieStoreWebApi.Applications.MovieOperations.Commands.CreateMovie.CreateMovieCommand;
+using static MovieStoreWebApi.GenreOperations.Commands.CreateGenre.CreateGenreCommand;
+using static MovieStoreWebApi.GenreOperations.Queries.GetGenres.GetGenresQuery;
 
 namespace WebApi.Common
 {
@@ -87,15 +91,35 @@ namespace WebApi.Common
                 .ForMember(dest => dest.Surname, opt => opt.MapFrom(src => src.Person.Name));
 
             //CreateActor
-            CreateMap<CreateActorModel, Person>()
+            CreateMap<CreateActorViewModel, Person>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Surname, opt => opt.MapFrom(src => src.Surname));
 
             //UpdateActor
-            CreateMap<UpdateActorModel, Person>()
+            CreateMap<UpdateActorViewModel, Person>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Surname, opt => opt.MapFrom(src => src.Surname));
+
+            #endregion
+
+            #region GenreMaps
+
+            //GetGenres
+            CreateMap<Genre, GetGenresViewModel>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name));
+
+            //GetGenreDetailById
+            CreateMap<Genre, GenreDetailViewModel>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name));
+
+            //CreateGenre
+            CreateMap<CreateGenreViewModel, Genre>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name));
+
+            //UpdateGenre
+            CreateMap<UpdateGenreViewModel, Genre>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name));
 
             #endregion
         }
