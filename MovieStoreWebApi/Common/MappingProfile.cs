@@ -1,4 +1,6 @@
 using AutoMapper;
+using MovieStoreWebApi.Applications.CustomerOperations.GetCustomerDetail;
+using MovieStoreWebApi.Applications.CustomerOperations.GetCustomers;
 using MovieStoreWebApi.Applications.DirectorOperations.Commands.CreateDirector;
 using MovieStoreWebApi.Applications.DirectorOperations.Commands.UpdateActor;
 using MovieStoreWebApi.Applications.DirectorOperations.Commands.UpdateDirector;
@@ -120,6 +122,23 @@ namespace WebApi.Common
             //UpdateGenre
             CreateMap<UpdateGenreViewModel, Genre>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name));
+
+            #endregion
+
+            #region Customer
+
+            CreateMap<Customer, GetCustomersViewModel>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Surname, opt => opt.MapFrom(src => src.Surname))
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email));
+
+            CreateMap<Customer, GetCustomerDetailViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Surname, opt => opt.MapFrom(src => src.Surname))
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
+                .ForMember(dest => dest.FavoriteGenres, opt => opt.MapFrom(src => src.FavoriteGenres.Select(x=>x.Genre.Name)))
+                .ForMember(dest => dest.PurchasedFilms, opt => opt.MapFrom(src => src.CustomerOrders.Select(x=>x.Order.Movie.Name)));
 
             #endregion
         }

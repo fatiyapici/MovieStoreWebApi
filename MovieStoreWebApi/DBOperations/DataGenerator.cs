@@ -171,7 +171,6 @@ namespace MovieStoreWebApi.DbOperations
                        Name = "Fight Club",
                        Price = 14.99m,
                        ReleaseDate = new DateTime(1999, 1, 1)
-
                    },
                    new Movie
                    {
@@ -257,6 +256,12 @@ namespace MovieStoreWebApi.DbOperations
                         Surname = "Yapici",
                         Email = "fati@gmail.com",
                         Password = "123456",
+                        FavoriteGenres = new List<FavoriteCustomerGenre>
+                            {
+                            new FavoriteCustomerGenre { GenreId = 1 },
+                            new FavoriteCustomerGenre { GenreId = 2 },
+                            new FavoriteCustomerGenre { GenreId = 3 }
+                            }
                     },
                     new Customer
                     {
@@ -264,6 +269,12 @@ namespace MovieStoreWebApi.DbOperations
                         Surname = "Taylan",
                         Email = "baran@gmail.com",
                         Password = "123456",
+                        FavoriteGenres = new List<FavoriteCustomerGenre>
+                            {
+                            new FavoriteCustomerGenre { GenreId = 1 },
+                            new FavoriteCustomerGenre { GenreId = 2 },
+                            new FavoriteCustomerGenre { GenreId = 3 }
+                            }
                     });
 
                 #endregion
@@ -291,6 +302,21 @@ namespace MovieStoreWebApi.DbOperations
                 #endregion
 
                 context.SaveChanges();
+
+                #region CustomerOrders
+
+                context.CustomerOrders.AddRange(
+                new List<CustomerOrder>
+                {
+                        new CustomerOrder { OrderId = 1 , CustomerId = 1},
+
+                        new CustomerOrder { OrderId = 2 , CustomerId = 2}
+                }
+                );
+
+                context.SaveChanges();
+
+                #endregion
             }
         }
     }

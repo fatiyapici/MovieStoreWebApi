@@ -9,7 +9,6 @@ namespace MovieStoreWebApi.Applications.MovieOperations.Queries.GetMovieDetail
         private readonly IMovieStoreDbContext _dbContext;
         private readonly IMapper _mapper;
         public int MovieId { get; set; }
-
         public GetMovieDetailQuery(IMovieStoreDbContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;

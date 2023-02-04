@@ -14,7 +14,7 @@ namespace MovieStoreWebApi.DbOperations
         DbSet<Genre> Genres { get; set; }
         DbSet<MovieGenre> MovieGenres { get; set; }
         DbSet<Customer> Customers { get; set; }
-        DbSet<CustomerGenre> CustomerGenres { get; set; }
+        DbSet<FavoriteCustomerGenre> FavoriteCustomerGenres { get; set; }
         DbSet<Order> Orders { get; set; }
         int SaveChanges();
     }

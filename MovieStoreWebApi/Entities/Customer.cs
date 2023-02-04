@@ -14,15 +14,21 @@ namespace MovieStoreWebApi.Entities
         // public string RefreshToken { get; set; }
         public Person Person { get; set; }
         // public DateTime? RefreshTokenExpireDate { get; set; }
-        public virtual ICollection<Order> Orders { get; set; }
-        public virtual ICollection<CustomerGenre> FavoriteGenres { get; set; }
+        public virtual ICollection<FavoriteCustomerGenre> FavoriteGenres { get; set; }
+        public virtual ICollection<CustomerOrder> CustomerOrders { get; set; }
     }
-
-    public class CustomerGenre
+    public class FavoriteCustomerGenre
     {
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
         public int GenreId { get; set; }
         public Genre Genre { get; set; }
+    }
+    public class CustomerOrder
+    {
+        public int CustomerId { get; set; }
+        public Customer Customer { get; set; }
+        public int OrderId { get; set; }
+        public Order Order { get; set; }
     }
 }

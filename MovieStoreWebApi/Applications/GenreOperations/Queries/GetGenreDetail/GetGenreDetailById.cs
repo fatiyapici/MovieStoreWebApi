@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using MovieStoreWebApi.DbOperations;
 
 namespace MovieStoreWebApi.Applications.GenreOperations.Queries.GetGenreDetailById

@@ -10,7 +10,8 @@ namespace MovieStoreWebApi.DbOperations
         public DbSet<Actor> Actors { get; set; }
         public DbSet<MovieActor> MovieActors { get; set; }
         public DbSet<Customer> Customers { get; set; }
-        public DbSet<CustomerGenre> CustomerGenres { get; set; }
+        public DbSet<FavoriteCustomerGenre> FavoriteCustomerGenres { get; set; }
+        public DbSet<CustomerOrder> CustomerOrders { get; set; }
         public DbSet<Director> Directors { get; set; }
         public DbSet<MovieDirector> MovieDirectors { get; set; }
         public DbSet<Genre> Genres { get; set; }
@@ -29,55 +30,64 @@ namespace MovieStoreWebApi.DbOperations
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<MovieActor>()
-                .HasKey(ma => new { ma.MovieId, ma.ActorId });
+                .HasKey(x => new { x.MovieId, x.ActorId });
 
             modelBuilder.Entity<MovieActor>()
-                .HasOne(ma => ma.Movie)
-                .WithMany(m => m.Actors)
-                .HasForeignKey(ma => ma.MovieId);
+                .HasOne(x => x.Movie)
+                .WithMany(x => x.Actors)
+                .HasForeignKey(x => x.MovieId);
 
             modelBuilder.Entity<MovieActor>()
-                .HasOne(ma => ma.Actor)
+                .HasOne(x => x.Actor)
                 .WithMany()
-                .HasForeignKey(ma => ma.ActorId);
+                .HasForeignKey(x => x.ActorId);
 
             modelBuilder.Entity<MovieDirector>()
-                .HasKey(md => new { md.MovieId, md.DirectorId });
+                .HasKey(x => new { x.MovieId, x.DirectorId });
 
             modelBuilder.Entity<MovieDirector>()
-                .HasOne(md => md.Movie)
-                .WithMany(m => m.Directors)
-                .HasForeignKey(md => md.MovieId);
+                .HasOne(x => x.Movie)
+                .WithMany(x => x.Directors)
+                .HasForeignKey(x => x.MovieId);
 
             modelBuilder.Entity<MovieDirector>()
-                .HasOne(md => md.Director)
-                .WithMany(d => d.DirectedMovies)
-                .HasForeignKey(md => md.DirectorId);
+                .HasOne(x => x.Director)
+                .WithMany(x => x.DirectedMovies)
+                .HasForeignKey(x => x.DirectorId);
 
-            modelBuilder.Entity<CustomerGenre>()
-                .HasKey(cg => new { cg.CustomerId, cg.GenreId });
+            modelBuilder.Entity<FavoriteCustomerGenre>()
+                .HasKey(x => new { x.CustomerId, x.GenreId });
 
-            modelBuilder.Entity<CustomerGenre>()
-                .HasOne(cg => cg.Customer)
-                .WithMany(c => c.FavoriteGenres)
-                .HasForeignKey(cg => cg.CustomerId);
-
-            modelBuilder.Entity<MovieGenre>()
-                .HasKey(mg => new { mg.MovieId, mg.GenreId });
+            modelBuilder.Entity<FavoriteCustomerGenre>()
+                .HasOne(x => x.Customer)
+                .WithMany(x => x.FavoriteGenres)
+                .HasForeignKey(x => x.CustomerId);
 
             modelBuilder.Entity<MovieGenre>()
-                .HasOne(mg => mg.Movie)
-                .WithMany(m => m.Genres)
-                .HasForeignKey(mg => mg.MovieId);
+                .HasKey(x => new { x.MovieId, x.GenreId });
 
             modelBuilder.Entity<MovieGenre>()
-                .HasOne(mg => mg.Genre)
+                .HasOne(x => x.Movie)
+                .WithMany(x => x.Genres)
+                .HasForeignKey(x => x.MovieId);
+
+            modelBuilder.Entity<MovieGenre>()
+                .HasOne(x => x.Genre)
                 .WithMany()
-                .HasForeignKey(mg => mg.GenreId);
+                .HasForeignKey(x => x.GenreId);
 
-            modelBuilder.Entity<Customer>()
-                .HasMany(x => x.Orders)
-                .WithOne(x => x.Customer);
+            modelBuilder.Entity<CustomerOrder>()
+                .HasKey(x => new { x.CustomerId, x.OrderId });
+
+            modelBuilder.Entity<CustomerOrder>()
+                .HasOne(x => x.Order)
+                .WithMany()
+                .HasForeignKey(x => x.OrderId);
+
+            modelBuilder.Entity<CustomerOrder>()
+                .HasOne(x => x.Customer)
+                .WithMany(x=>x.CustomerOrders)
+                .HasForeignKey(x => x.CustomerId);
         }
     }
 }
