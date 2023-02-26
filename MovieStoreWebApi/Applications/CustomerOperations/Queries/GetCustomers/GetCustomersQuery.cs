@@ -16,7 +16,6 @@ namespace MovieStoreWebApi.Applications.CustomerOperations.GetCustomers
         public List<GetCustomersViewModel> Handle()
         {
             var customerList = _context.Customers.ToList();
-
             List<GetCustomersViewModel> vm = _mapper.Map<List<GetCustomersViewModel>>(customerList);
             return vm;
         }

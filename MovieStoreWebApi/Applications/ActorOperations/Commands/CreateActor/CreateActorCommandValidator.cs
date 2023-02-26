@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace MovieStoreWebApi.ActorOperations.Commands.CreateActor
+namespace MovieStoreWebApi.Applications.ActorOperations.Commands.CreateActor
 {
     public class CreateActorCommandValidator : AbstractValidator<CreateActorCommand>
     {

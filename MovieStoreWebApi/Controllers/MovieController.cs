@@ -1,11 +1,14 @@
 using AutoMapper;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using MovieStoreWebApi.Applications.MovieOperations.Commands.CreateMovie;
-using MovieStoreWebApi.Applications.MovieOperations.Queries.GetMovieDetail;
-using MovieStoreWebApi.Controllers.Queries.GetMovies;
 using MovieStoreWebApi.DbOperations;
+using MovieStoreWebApi.Applications.MovieOperations.Queries.GetMovies;
+using MovieStoreWebApi.Applications.MovieOperations.Queries.GetMovieDetail;
+using MovieStoreWebApi.Applications.MovieOperations.Commands.CreateMovie;
 using static MovieStoreWebApi.Applications.MovieOperations.Commands.CreateMovie.CreateMovieCommand;
+using static MovieStoreWebApi.Applications.MovieOperations.Commands.UpdateMovie.UpdateMovieCommand;
+using MovieStoreWebApi.Applications.MovieOperations.Commands.UpdateMovie;
+using MovieStoreWebApi.Applications.MovieOperations.Commands.DeleteMovie;
 
 namespace MovieStoreWebApi.Controllers;
 
@@ -27,7 +30,6 @@ public class MovieController : ControllerBase
     {
         GetMoviesQuery query = new GetMoviesQuery(_context, _mapper);
         var result = query.Handle();
-
         return Ok(result);
     }
 
@@ -37,11 +39,9 @@ public class MovieController : ControllerBase
         MovieDetailViewModel result;
         GetMovieDetailQuery query = new GetMovieDetailQuery(_context, _mapper);
         query.MovieId = id;
-
         GetMovieDetailQueryValidator validator = new GetMovieDetailQueryValidator();
         validator.ValidateAndThrow(query);
         result = query.Handle();
-
         return Ok(result);
     }
 
@@ -51,6 +51,29 @@ public class MovieController : ControllerBase
         CreateMovieCommand command = new CreateMovieCommand(_context, _mapper);
         command.Model = newMovie;
         CreateMovieCommandValidator validator = new CreateMovieCommandValidator();
+        validator.ValidateAndThrow(command);
+        command.Handle();
+        return Ok();
+    }
+
+    [HttpPut("{id}")]
+    public IActionResult UpdateMovie([FromBody] UpdateMovieViewModel updateMovie, int id)
+    {
+        UpdateMovieCommand command = new UpdateMovieCommand(_context);
+        command.MovieId = id;
+        command.Model = updateMovie;
+        UpdateMovieCommandValidator validator = new UpdateMovieCommandValidator();
+        validator.ValidateAndThrow(command);
+        command.Handle();
+        return Ok();
+    }
+
+    [HttpDelete("{id}")]
+    public IActionResult DeleteMovie(int id)
+    {
+        DeleteMovieCommand command = new DeleteMovieCommand(_context);
+        command.MovieId = id;
+        DeleteMovieCommandValidator validator = new DeleteMovieCommandValidator();
         validator.ValidateAndThrow(command);
         command.Handle();
         return Ok();

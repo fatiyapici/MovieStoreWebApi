@@ -261,7 +261,9 @@ namespace MovieStoreWebApi.DbOperations
                             new FavoriteCustomerGenre { GenreId = 1 },
                             new FavoriteCustomerGenre { GenreId = 2 },
                             new FavoriteCustomerGenre { GenreId = 3 }
-                            }
+                            },
+                        RefreshToken = "",
+                        RefreshTokenExpireDate = DateTime.Now.AddHours(2)
                     },
                     new Customer
                     {

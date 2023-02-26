@@ -1,10 +1,10 @@
 using MovieStoreWebApi.DbOperations;
 
-namespace MovieStoreWebApi.Applications.DirectorOperations.Commands.DeleteActor
+namespace MovieStoreWebApi.Applications.ActorOperations.Commands.DeleteActor
 {
     public class DeleteActorCommand
     {
-        public int Id { get; set; }
+        public int ActorId { get; set; }
         private readonly IMovieStoreDbContext _context;
         public DeleteActorCommand(IMovieStoreDbContext context)
         {
@@ -12,7 +12,7 @@ namespace MovieStoreWebApi.Applications.DirectorOperations.Commands.DeleteActor
         }
         public void Handle()
         {
-            var actor = _context.Actors.Find(Id);
+            var actor = _context.Actors.Find(ActorId);
             if (actor is null)
             {
                 throw new InvalidOperationException("Oyuncu bulunamadi.");

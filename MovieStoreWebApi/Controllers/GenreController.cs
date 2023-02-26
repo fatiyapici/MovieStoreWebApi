@@ -1,13 +1,15 @@
 using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using MovieStoreWebApi.Applications.GenreOperations.Commands.DeleteGenre;
-using MovieStoreWebApi.Applications.GenreOperations.Commands.UpdateGenre;
-using MovieStoreWebApi.Applications.GenreOperations.Queries.GetGenreDetailById;
-using MovieStoreWebApi.DbOperations;
 using MovieStoreWebApi.Entities;
-using MovieStoreWebApi.GenreOperations.Commands.CreateGenre;
-using MovieStoreWebApi.GenreOperations.Queries.GetGenres;
-using static MovieStoreWebApi.GenreOperations.Commands.CreateGenre.CreateGenreCommand;
+using MovieStoreWebApi.DbOperations;
+using MovieStoreWebApi.Applications.GenreOperations.Queries.GetGenres;
+using MovieStoreWebApi.Applications.GenreOperations.Queries.GetGenreDetailById;
+using MovieStoreWebApi.Applications.GenreOperations.Commands.CreateGenre;
+using MovieStoreWebApi.Applications.GenreOperations.Commands.UpdateGenre;
+using MovieStoreWebApi.Applications.GenreOperations.Commands.DeleteGenre;
+using static MovieStoreWebApi.Applications.GenreOperations.Commands.CreateGenre.CreateGenreCommand;
+using MovieStoreWebApi.Applications.GenreOperations.Commands.GenreDirector;
 
 namespace MovieStoreWebApi.Controllers;
 
@@ -29,7 +31,6 @@ public class GenreController : ControllerBase
     {
         GetGenresQuery query = new GetGenresQuery(_context, _mapper);
         var result = query.Handle();
-
         return Ok(result);
     }
 
@@ -38,6 +39,8 @@ public class GenreController : ControllerBase
     {
         GetGenreDetailById query = new GetGenreDetailById(_context);
         query.GenreId = id;
+        GetGenreDetailByIdValidator validator = new GetGenreDetailByIdValidator();
+        validator.ValidateAndThrow(query);
         var result = query.Handle();
 
         return Ok(result);
@@ -49,6 +52,8 @@ public class GenreController : ControllerBase
         var genre = _mapper.Map<Genre>(newGenre);
         CreateGenreCommand command = new CreateGenreCommand(_context, _mapper);
         command.Model = genre;
+        CreateGenreCommandValidator validator = new CreateGenreCommandValidator();
+        validator.ValidateAndThrow(command);
         command.Handle();
         return Ok();
     }
@@ -60,6 +65,8 @@ public class GenreController : ControllerBase
         UpdateGenreCommand command = new UpdateGenreCommand(_context, id);
         command.Id = id;
         command.Model = updateGenre;
+        UpdateGenreCommandValidator validator = new UpdateGenreCommandValidator();
+        validator.ValidateAndThrow(command);
         command.Handle();
         return Ok();
     }
@@ -69,6 +76,8 @@ public class GenreController : ControllerBase
     {
         DeleteGenreCommand command = new DeleteGenreCommand(_context);
         command.Id = id;
+        DeleteGenreCommandValidator validator = new DeleteGenreCommandValidator();
+        validator.ValidateAndThrow(command);
         command.Handle();
         return Ok();
     }

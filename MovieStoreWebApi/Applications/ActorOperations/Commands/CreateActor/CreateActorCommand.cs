@@ -2,7 +2,7 @@ using AutoMapper;
 using MovieStoreWebApi.DbOperations;
 using MovieStoreWebApi.Entities;
 
-namespace MovieStoreWebApi.ActorOperations.Commands.CreateActor
+namespace MovieStoreWebApi.Applications.ActorOperations.Commands.CreateActor
 {
     public class CreateActorCommand
     {

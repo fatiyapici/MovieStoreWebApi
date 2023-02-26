@@ -2,7 +2,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using MovieStoreWebApi.DbOperations;
 
-namespace MovieStoreWebApi.Controllers.Queries.GetMovies
+namespace MovieStoreWebApi.Applications.MovieOperations.Queries.GetMovies
 {
     public class GetMoviesQuery
     {
@@ -38,4 +38,3 @@ namespace MovieStoreWebApi.Controllers.Queries.GetMovies
         public List<string> Genres { get; set; }
     }
 }
-

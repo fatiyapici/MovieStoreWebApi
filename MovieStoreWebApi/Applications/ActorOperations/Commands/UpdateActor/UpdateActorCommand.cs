@@ -1,20 +1,22 @@
+using Microsoft.EntityFrameworkCore;
 using MovieStoreWebApi.DbOperations;
 
-namespace MovieStoreWebApi.Applications.DirectorOperations.Commands.UpdateActor
+namespace MovieStoreWebApi.Applications.ActorOperations.Commands.UpdateActor
 {
     public class UpdateActorCommand
     {
+        public int ActorId { get; set; }
         public UpdateActorViewModel Model { get; set; }
-        public int Id { get; set; }
         private readonly IMovieStoreDbContext _context;
-        public UpdateActorCommand(IMovieStoreDbContext context, int id)
+        public UpdateActorCommand(IMovieStoreDbContext context)
         {
             _context = context;
-            Id = id;
         }
         public void Handle()
         {
-            var actor = _context.Actors.SingleOrDefault(x => x.Id == Id);
+            var actor = _context.Actors
+            .Include(g => g.Person)
+            .SingleOrDefault(x => x.Id == ActorId);
             if (actor is null)
             {
                 throw new InvalidOperationException("Oyuncu bulunamadi.");

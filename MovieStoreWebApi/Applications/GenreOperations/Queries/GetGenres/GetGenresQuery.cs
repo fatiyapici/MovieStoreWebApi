@@ -1,8 +1,7 @@
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using MovieStoreWebApi.DbOperations;
 
-namespace MovieStoreWebApi.GenreOperations.Queries.GetGenres
+namespace MovieStoreWebApi.Applications.GenreOperations.Queries.GetGenres
 {
     public class GetGenresQuery
     {

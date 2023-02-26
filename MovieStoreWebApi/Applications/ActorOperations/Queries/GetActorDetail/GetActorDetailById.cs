@@ -2,7 +2,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using MovieStoreWebApi.DbOperations;
 
-namespace MovieStoreWebApi.ActorOperations.Queries.GetActorDetail
+namespace MovieStoreWebApi.Applications.ActorOperations.Queries.GetActorDetail
 {
     public class GetActorDetailById
     {

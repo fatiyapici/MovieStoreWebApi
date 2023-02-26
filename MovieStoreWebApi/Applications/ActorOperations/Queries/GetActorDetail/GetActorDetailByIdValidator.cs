@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace MovieStoreWebApi.ActorOperations.Queries.GetActorDetail
+namespace MovieStoreWebApi.Applications.ActorOperations.Queries.GetActorDetail
 {
     public class GetActorDetailByIdValidator : AbstractValidator<GetActorDetailById>
     {

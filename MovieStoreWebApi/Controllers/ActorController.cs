@@ -1,13 +1,13 @@
 using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using MovieStoreWebApi.ActorOperations.Commands.CreateActor;
-using MovieStoreWebApi.ActorOperations.Queries.GetActorDetail;
-using MovieStoreWebApi.ActorOperations.Queries.GetActors;
-using MovieStoreWebApi.Applications.DirectorOperations.Commands.DeleteActor;
-using MovieStoreWebApi.Applications.DirectorOperations.Commands.UpdateActor;
-using MovieStoreWebApi.Applications.DirectorOperations.Commands.UpdateDirector;
 using MovieStoreWebApi.DbOperations;
-using static MovieStoreWebApi.ActorOperations.Commands.CreateActor.CreateActorCommand;
+using MovieStoreWebApi.Applications.ActorOperations.Queries.GetActors;
+using MovieStoreWebApi.Applications.ActorOperations.Queries.GetActorDetail;
+using MovieStoreWebApi.Applications.ActorOperations.Commands.CreateActor;
+using MovieStoreWebApi.Applications.ActorOperations.Commands.UpdateActor;
+using MovieStoreWebApi.Applications.ActorOperations.Commands.DeleteActor;
+using static MovieStoreWebApi.Applications.ActorOperations.Commands.CreateActor.CreateActorCommand;
 
 namespace MovieStoreWebApi.Controllers;
 
@@ -29,7 +29,6 @@ public class ActorController : ControllerBase
     {
         GetActorsQuery query = new GetActorsQuery(_context, _mapper);
         var result = query.Handle();
-
         return Ok(result);
     }
 
@@ -38,8 +37,9 @@ public class ActorController : ControllerBase
     {
         GetActorDetailById query = new GetActorDetailById(_context, _mapper);
         query.ActorId = id;
+        GetActorDetailByIdValidator validator = new GetActorDetailByIdValidator();
+        validator.ValidateAndThrow(query);
         var result = query.Handle();
-
         return Ok(result);
     }
 
@@ -48,16 +48,20 @@ public class ActorController : ControllerBase
     {
         CreateActorCommand command = new CreateActorCommand(_context, _mapper);
         command.Model = newActor;
+        CreateActorCommandValidator validator = new CreateActorCommandValidator();
+        validator.ValidateAndThrow(command);
         command.Handle();
         return Ok();
     }
 
     [HttpPut("{id}")]
-    public IActionResult UpdateActor(int id, [FromBody] UpdateActorViewModel updateActor)
+    public IActionResult UpdateActor([FromBody] UpdateActorViewModel updateActor,int id)
     {
-        UpdateActorCommand command = new UpdateActorCommand(_context, id);
-        command.Id = id;
+        UpdateActorCommand command = new UpdateActorCommand(_context);
+        command.ActorId = id;
         command.Model = updateActor;
+        UpdateActorCommandValidator validator = new UpdateActorCommandValidator();
+        validator.ValidateAndThrow(command);
         command.Handle();
         return Ok();
     }
@@ -66,7 +70,9 @@ public class ActorController : ControllerBase
     public IActionResult DeleteActor(int id)
     {
         DeleteActorCommand command = new DeleteActorCommand(_context);
-        command.Id = id;
+        command.ActorId = id;
+        DeleteActorCommandValidator validator = new DeleteActorCommandValidator();
+        validator.ValidateAndThrow(command);
         command.Handle();
         return Ok();
     }

@@ -1,11 +1,12 @@
 using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using MovieStoreWebApi.DbOperations;
+using MovieStoreWebApi.Applications.DirectorOperations.GetDirectors;
+using MovieStoreWebApi.Applications.DirectorOperations.Queries.GetDirectorDetailById;
 using MovieStoreWebApi.Applications.DirectorOperations.Commands.CreateDirector;
 using MovieStoreWebApi.Applications.DirectorOperations.Commands.DeleteDirector;
 using MovieStoreWebApi.Applications.DirectorOperations.Commands.UpdateDirector;
-using MovieStoreWebApi.Applications.DirectorOperations.GetDirectors;
-using MovieStoreWebApi.Applications.DirectorOperations.Queries.GetDirectorDetailById;
-using MovieStoreWebApi.DbOperations;
 
 namespace MovieStoreWebApi.Controllers;
 
@@ -27,7 +28,6 @@ public class DirectorController : ControllerBase
     {
         GetDirectorsQuery query = new GetDirectorsQuery(_context, _mapper);
         var result = query.Handle();
-
         return Ok(result);
     }
 
@@ -36,8 +36,9 @@ public class DirectorController : ControllerBase
     {
         GetDirectorDetailById query = new GetDirectorDetailById(_context);
         query.DirectorId = id;
+        GetDirectorDetailByIdValidator validator = new GetDirectorDetailByIdValidator();
+        validator.ValidateAndThrow(query);
         var result = query.Handle();
-
         return Ok(result);
     }
 
@@ -46,6 +47,8 @@ public class DirectorController : ControllerBase
     {
         CreateDirectorCommand command = new CreateDirectorCommand(_context, _mapper);
         command.Model = newDirector;
+        CreateDirectorCommandValidator validator = new CreateDirectorCommandValidator();
+        validator.ValidateAndThrow(command);
         command.Handle();
         return Ok();
     }
@@ -56,6 +59,8 @@ public class DirectorController : ControllerBase
         UpdateDirectorCommand command = new UpdateDirectorCommand(_context, id);
         command.Id = id;
         command.Model = updateDirector;
+        UpdateDirectorCommandValidator validator = new UpdateDirectorCommandValidator();
+        validator.ValidateAndThrow(command);
         command.Handle();
         return Ok();
     }
@@ -65,6 +70,8 @@ public class DirectorController : ControllerBase
     {
         DeleteDirectorCommand command = new DeleteDirectorCommand(_context);
         command.Id = id;
+        DeleteDirectorCommandValidator validator = new DeleteDirectorCommandValidator();
+        validator.ValidateAndThrow(command);
         command.Handle();
         return Ok();
     }

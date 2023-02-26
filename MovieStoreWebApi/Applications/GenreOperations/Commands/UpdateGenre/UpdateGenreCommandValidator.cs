@@ -1,7 +1,6 @@
 using FluentValidation;
-using MovieStoreWebApi.Applications.GenreOperations.Commands.UpdateGenre;
 
-namespace MovieStoreWebApi.Application.Genres.Commands.UpdateGenre
+namespace MovieStoreWebApi.Applications.GenreOperations.Commands.UpdateGenre
 {
     public class UpdateGenreCommandValidator : AbstractValidator<UpdateGenreCommand>
     {

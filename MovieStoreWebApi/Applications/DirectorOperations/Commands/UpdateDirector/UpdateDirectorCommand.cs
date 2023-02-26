@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using MovieStoreWebApi.DbOperations;
 
 namespace MovieStoreWebApi.Applications.DirectorOperations.Commands.UpdateDirector
@@ -14,7 +15,9 @@ namespace MovieStoreWebApi.Applications.DirectorOperations.Commands.UpdateDirect
         }
         public void Handle()
         {
-            var director = _context.Directors.SingleOrDefault(x => x.Id == Id);
+            var director = _context.Directors
+            .Include(g => g.Person)
+            .SingleOrDefault(x => x.Id == Id);
             if (director is null)
             {
                 throw new InvalidOperationException("Yönetmen bulunamadi.");

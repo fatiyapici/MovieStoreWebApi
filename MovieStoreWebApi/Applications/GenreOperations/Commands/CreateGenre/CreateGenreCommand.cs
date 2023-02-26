@@ -2,8 +2,7 @@ using AutoMapper;
 using MovieStoreWebApi.DbOperations;
 using MovieStoreWebApi.Entities;
 
-
-namespace MovieStoreWebApi.GenreOperations.Commands.CreateGenre
+namespace MovieStoreWebApi.Applications.GenreOperations.Commands.CreateGenre
 {
     public class CreateGenreCommand
     {
