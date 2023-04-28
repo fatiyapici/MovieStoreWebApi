@@ -2,7 +2,6 @@ using AutoMapper;
 using FluentAssertions;
 using MovieStoreWebApi.Applications.ActorOperations.Commands.CreateActor;
 using MovieStoreWebApi.DbOperations;
-using MovieStoreWebApi.Entities;
 using Tests.WebApi.UnitTests.TestSetup;
 using Xunit;
 using static MovieStoreWebApi.Applications.ActorOperations.Commands.CreateActor.CreateActorCommand;
