@@ -21,6 +21,10 @@ namespace MovieStoreWebApi.Applications.ActorOperations.Commands.UpdateActor
             {
                 throw new InvalidOperationException("Oyuncu bulunamadi.");
             }
+            if (_context.Persons.Any(x => x.Name.ToLower() == Model.Name.ToLower() && x.Surname.ToLower() == Model.Surname.ToLower()))
+            {
+                throw new InvalidOperationException("Ayni bilgilere sahip oyuncu mevcut.");
+            }
             actor.Person.Name = Model.Name;
             actor.Person.Surname = Model.Surname;
             _context.Actors.Update(actor);
