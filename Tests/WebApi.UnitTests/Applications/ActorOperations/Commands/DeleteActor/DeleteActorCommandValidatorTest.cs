@@ -6,7 +6,7 @@ using MovieStoreWebApi.Entities;
 using Tests.WebApi.UnitTests.TestSetup;
 using Xunit;
 
-namespace Tests.WebApi.UnitTests.Applications.ActorOperations.DeleteActor
+namespace Tests.WebApi.UnitTests.Applications.ActorOperations.Commands.DeleteActor
 {
     public class DeleteActorCommandValidatorTest : IClassFixture<CommonTestFixture>
     {
