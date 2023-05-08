@@ -9,6 +9,7 @@ namespace MovieStoreWebApi.Applications.ActorOperations.Queries.GetActorDetail
         public int ActorId { get; set; }
         public readonly IMovieStoreDbContext _context;
         public readonly IMapper _mapper;
+        public const string ExceptionMessage = "Aktör bulunamadi.";
 
         public GetActorDetailById(IMovieStoreDbContext context, IMapper mapper)
         {
@@ -17,18 +18,18 @@ namespace MovieStoreWebApi.Applications.ActorOperations.Queries.GetActorDetail
         }
         public GetActorDetailViewModel Handle()
         {
-            var actor = _context.Actors.Include(x => x.Person).SingleOrDefault(x => x.Id == ActorId);
+            var actor = _context.Actors.Find(ActorId);
             if (actor is null)
             {
-                throw new InvalidOperationException("Aktör bulunamadi.");
+                throw new InvalidOperationException(ExceptionMessage);
             }
-            var directorViewModel = new GetActorDetailViewModel
+            var actorViewModel = new GetActorDetailViewModel
             {
                 Id = actor.Id,
                 Name = actor.Person.Name,
                 Surname = actor.Person.Surname
             };
-            return directorViewModel;
+            return actorViewModel;
         }
         public class GetActorDetailViewModel
         {
