@@ -22,13 +22,13 @@ namespace MovieStoreWebApi.Applications.ActorOperations.Queries.GetActorDetail
             {
                 throw new InvalidOperationException("Aktör bulunamadi.");
             }
-            var actorViewModel = new GetActorDetailViewModel
+            var directorViewModel = new GetActorDetailViewModel
             {
                 Id = actor.Id,
                 Name = actor.Person.Name,
                 Surname = actor.Person.Surname
             };
-            return actorViewModel;
+            return directorViewModel;
         }
         public class GetActorDetailViewModel
         {
