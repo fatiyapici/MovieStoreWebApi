@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using MovieStoreWebApi.DbOperations;
 
@@ -7,16 +8,20 @@ namespace MovieStoreWebApi.Applications.DirectorOperations.Queries.GetDirectorDe
     {
         public int DirectorId { get; set; }
         private readonly IMovieStoreDbContext _context;
-        public GetDirectorDetailById(IMovieStoreDbContext context)
+        public readonly IMapper _mapper;
+        public const string ExceptionMessage = "Yönetmen bulunamadi.";
+
+        public GetDirectorDetailById(IMovieStoreDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
         public DirectorDetailViewModel Handle()
         {
-            var director = _context.Directors.Include(x => x.Person).SingleOrDefault(x => x.Id == DirectorId);
+            var director = _context.Directors.Find(DirectorId);
             if (director is null)
             {
-                return null;
+                throw new InvalidOperationException(ExceptionMessage);
             }
             var directorViewModel = new DirectorDetailViewModel
             {
