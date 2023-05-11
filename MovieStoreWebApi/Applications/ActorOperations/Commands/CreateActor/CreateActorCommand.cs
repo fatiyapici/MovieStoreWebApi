@@ -9,6 +9,8 @@ namespace MovieStoreWebApi.Applications.ActorOperations.Commands.CreateActor
         public CreateActorViewModel Model { get; set; }
         private readonly IMovieStoreDbContext _dbContext;
         private readonly IMapper _mapper;
+        public const string ExceptionMessage = "Oyuncu zaten mevcut.";
+
         public CreateActorCommand(IMovieStoreDbContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
