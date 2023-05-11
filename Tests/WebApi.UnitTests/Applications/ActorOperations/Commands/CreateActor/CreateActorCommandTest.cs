@@ -35,7 +35,7 @@ namespace Tests.WebApi.UnitTests.Applications.ActorOperations.Commands.CreateAct
 
             FluentActions.
             Invoking(() => command.Handle()).Should().Throw<InvalidOperationException>()
-            .And.Message.Should().Be("Oyuncu zaten mevcut.");
+            .And.Message.Should().Be(CreateActorCommand.ExceptionMessage);
         }
     }
 }

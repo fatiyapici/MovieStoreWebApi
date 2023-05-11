@@ -36,12 +36,7 @@ namespace Tests.WebApi.UnitTests.Applications.ActorOperations.Commands.DeleteAct
         public void WhenValidInputsAreGiven_Actor_ShouldBeDeleted()
         {
             DeleteActorCommand command = new DeleteActorCommand(_context);
-            var actor = new Actor()
-            {
-                Id = 3
-            };
-
-            command.ActorId = actor.Id;
+            command.ActorId = 2;
 
             DeleteActorCommandValidator validator = new DeleteActorCommandValidator();
             var result = validator.Validate(command);

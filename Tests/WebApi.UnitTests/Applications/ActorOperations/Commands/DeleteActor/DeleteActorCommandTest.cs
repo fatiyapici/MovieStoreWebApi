@@ -18,14 +18,12 @@ namespace Tests.WebApi.UnitTests.Applications.ActorOperations.Commands.DeleteAct
         [Fact]
         public void WhenToBeDeletedActorIsNotFound_InvalidOperationException_ShouldReturn()
         {
-            //3 Actor registered in the Database
-
             DeleteActorCommand command = new DeleteActorCommand(_context);
             command.ActorId = 4;
 
             FluentActions.
                 Invoking(() => command.Handle()).Should().Throw<InvalidOperationException>()
-                    .And.Message.Should().Be("Oyuncu bulunamadi.");
+                    .And.Message.Should().Be(DeleteActorCommand.ExceptionMessage);
         }
     }
 }
