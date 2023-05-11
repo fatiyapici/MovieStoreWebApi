@@ -19,14 +19,9 @@ namespace Tests.WebApi.UnitTests.Applications.ActorOperations.Queries.GetActorDe
             _mapper = testFixture.Mapper;
         }
 
-        //todo fact test caseleri yanlis duzeltilecek.
         [Fact]
         public void WhenActorIsNotFound_InvalidOperationException_ShouldReturn()
         {
-            // var actor = new Actor { PersonId = 1 };
-            // _context.Actors.Add(actor);
-            // _context.SaveChanges();
-
             GetActorDetailById query = new GetActorDetailById(_context, _mapper);
             query.ActorId = 10;
 
