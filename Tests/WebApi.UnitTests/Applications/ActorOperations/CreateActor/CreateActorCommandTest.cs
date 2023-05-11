@@ -7,7 +7,7 @@ using Tests.WebApi.UnitTests.TestSetup;
 using Xunit;
 using static MovieStoreWebApi.Applications.ActorOperations.Commands.CreateActor.CreateActorCommand;
 
-namespace Tests.WebApi.UnitTests.Applications.ActorOperations.CreateActor
+namespace Tests.WebApi.UnitTests.Applications.DirectorOperations.CreateActor
 {
     public class CreateActorCommandTest : IClassFixture<CommonTestFixture>
     {
