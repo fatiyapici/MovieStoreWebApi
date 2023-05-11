@@ -6,6 +6,8 @@ namespace MovieStoreWebApi.Applications.DirectorOperations.Commands.DeleteDirect
     {
         public int Id { get; set; }
         private readonly IMovieStoreDbContext _context;
+        public const string ExceptionMessage = "Yönetmen bulunamadi.";
+
         public DeleteDirectorCommand(IMovieStoreDbContext context)
         {
             _context = context;
