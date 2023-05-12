@@ -33,16 +33,22 @@ namespace Tests.WebApi.UnitTests.Applications.ActorOperations.Queries.GetActorDe
         [Fact]
         public void WhenActorIsFound_Actor_ShouldReturn()
         {
-            var actor = new Person()
+            var person = new Person()
             {
                 Name = "Matthew",
                 Surname = "McConaughey"
             };
-            _context.Persons.Add(actor);
+            _context.Persons.Add(person);
             _context.SaveChanges();
-
+            
+            var actor = new Actor()
+            {
+                PersonId = person.Id
+            };
+            _context.Actors.Add(actor);
+            _context.SaveChanges();
             GetActorDetailById query = new GetActorDetailById(_context, _mapper);
-            query.ActorId = 2;
+            query.ActorId = actor.Id;
 
             FluentActions.
                 Invoking(() => query.Handle()).Invoke();
