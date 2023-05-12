@@ -21,7 +21,7 @@ namespace MovieStoreWebApi.Applications.ActorOperations.Commands.CreateActor
         {
             var actor = _dbContext.Actors.SingleOrDefault(x => x.Person.Name == Model.Name && x.Person.Surname == Model.Surname);
             if (actor != null)
-                throw new InvalidOperationException("Oyuncu zaten mevcut.");
+                throw new InvalidOperationException(ExceptionMessage);
             actor = _mapper.Map<Actor>(Model);
             _dbContext.Actors.Add(actor);
             _dbContext.SaveChanges();
