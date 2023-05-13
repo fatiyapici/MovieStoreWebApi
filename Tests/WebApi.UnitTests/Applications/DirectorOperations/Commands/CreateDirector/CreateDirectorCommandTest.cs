@@ -22,16 +22,23 @@ namespace Tests.WebApi.UnitTests.Applications.DirectorOperations.Commands.Create
         [Fact]
         public void WhenAlreadyExistActorIsGiven_InvalidOperationException_ShouldReturn()
         {
-            var director = new Person()
+            var person = new Person()
             {
                 Name = "Christopher",
                 Surname = "Nolan"
             };
-            _context.Persons.Add(director);
+            _context.Persons.Add(person);
+            _context.SaveChanges();
+            
+            var director = new Director()
+            {
+                PersonId = person.Id
+            };
+            _context.Directors.Add(director);
             _context.SaveChanges();
 
             CreateDirectorCommand command = new CreateDirectorCommand(_context, _mapper);
-            command.Model = new CreateDirectorModel() { Name = director.Name, Surname = director.Surname };
+            command.Model = new CreateDirectorModel() { Name = person.Name, Surname = person.Surname };
 
             FluentActions.
             Invoking(() => command.Handle()).Should().Throw<InvalidOperationException>()

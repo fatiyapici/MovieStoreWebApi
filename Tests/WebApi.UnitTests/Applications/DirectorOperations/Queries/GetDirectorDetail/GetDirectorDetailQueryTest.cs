@@ -33,10 +33,17 @@ namespace Tests.WebApi.UnitTests.Applications.DirectorOperations.Queries.GetDire
         [Fact]
         public void WhenDirectorIsFound_Director_ShouldReturn()
         {
+            var person = new Person()
+            {
+                Name = "Christopher",
+                Surname = "Nolan"
+            };
+            _context.Persons.Add(person);
+            _context.SaveChanges();
+
             var director = new Director()
             {
-                Id = 1,
-                PersonId = 4
+                PersonId = person.Id
             };
             _context.Directors.Add(director);
             _context.SaveChanges();
