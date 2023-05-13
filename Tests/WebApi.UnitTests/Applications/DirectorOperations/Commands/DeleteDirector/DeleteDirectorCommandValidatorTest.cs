@@ -23,7 +23,7 @@ namespace Tests.WebApi.UnitTests.Applications.DirectorOperations.Commands.Delete
         public void WhenInvalidInputAreGiven_Validator_ShouldBeReturnErrors(int DirectorId)
         {
             DeleteDirectorCommand command = new DeleteDirectorCommand(null);
-            command.Id = DirectorId;
+            command.DirectorId = DirectorId;
 
             DeleteDirectorCommandValidator validator = new DeleteDirectorCommandValidator();
             var result = validator.Validate(command);
@@ -35,12 +35,7 @@ namespace Tests.WebApi.UnitTests.Applications.DirectorOperations.Commands.Delete
         public void WhenValidInputsAreGiven_Director_ShouldBeDeleted()
         {
             DeleteDirectorCommand command = new DeleteDirectorCommand(_context);
-            var director = new Director()
-            {
-                Id = 4
-            };
-
-            command.Id = director.Id;
+            command.DirectorId = 2;
 
             DeleteDirectorCommandValidator validator = new DeleteDirectorCommandValidator();
             var result = validator.Validate(command);

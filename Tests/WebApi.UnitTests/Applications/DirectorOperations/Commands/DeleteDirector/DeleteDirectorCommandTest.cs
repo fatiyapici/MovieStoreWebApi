@@ -19,7 +19,7 @@ namespace Tests.WebApi.UnitTests.Applications.DirectorOperations.Commands.Delete
         public void WhenToBeDeletedDirectorIsNotFound_InvalidOperationException_ShouldReturn()
         {
             DeleteDirectorCommand command = new DeleteDirectorCommand(_context);
-            command.Id = 4;
+            command.DirectorId = 4;
 
             FluentActions.
                 Invoking(() => command.Handle()).Should().Throw<InvalidOperationException>()
