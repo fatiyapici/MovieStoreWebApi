@@ -7,7 +7,7 @@ using Tests.WebApi.UnitTests.TestSetup;
 using Xunit;
 using static MovieStoreWebApi.Applications.ActorOperations.Commands.CreateActor.CreateActorCommand;
 
-namespace Tests.WebApi.UnitTests.Applications.ActorOperations.CreateActor
+namespace Tests.WebApi.UnitTests.Applications.ActorOperations.Commands.CreateActor
 {
     public class CreateActorCommandTest : IClassFixture<CommonTestFixture>
     {
@@ -22,20 +22,26 @@ namespace Tests.WebApi.UnitTests.Applications.ActorOperations.CreateActor
         [Fact]
         public void WhenAlreadyExistActorIsGiven_InvalidOperationException_ShouldReturn()
         {
-            var actor = new Person()
+            var person = new Person()
             {
                 Name = "Matthew",
                 Surname = "McConaughey"
             };
-            _context.Persons.Add(actor);
+            _context.Persons.Add(person);
+            _context.SaveChanges();
+            var actor = new Actor()
+            {
+                PersonId = person.Id
+            };
+            _context.Actors.Add(actor);
             _context.SaveChanges();
 
             CreateActorCommand command = new CreateActorCommand(_context, _mapper);
-            command.Model = new CreateActorViewModel() { Name = actor.Name, Surname = actor.Surname };
+            command.Model = new CreateActorViewModel() { Name = person.Name, Surname = person.Surname };
 
             FluentActions.
             Invoking(() => command.Handle()).Should().Throw<InvalidOperationException>()
-            .And.Message.Should().Be("Oyuncu zaten mevcut.");
+            .And.Message.Should().Be(CreateActorCommand.ExceptionMessage);
         }
     }
 }

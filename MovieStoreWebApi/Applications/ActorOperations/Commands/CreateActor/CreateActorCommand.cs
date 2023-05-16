@@ -9,6 +9,8 @@ namespace MovieStoreWebApi.Applications.ActorOperations.Commands.CreateActor
         public CreateActorViewModel Model { get; set; }
         private readonly IMovieStoreDbContext _dbContext;
         private readonly IMapper _mapper;
+        public const string ExceptionMessage = "Oyuncu zaten mevcut.";
+
         public CreateActorCommand(IMovieStoreDbContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
@@ -19,7 +21,7 @@ namespace MovieStoreWebApi.Applications.ActorOperations.Commands.CreateActor
         {
             var actor = _dbContext.Actors.SingleOrDefault(x => x.Person.Name == Model.Name && x.Person.Surname == Model.Surname);
             if (actor != null)
-                throw new InvalidOperationException("Oyuncu zaten mevcut.");
+                throw new InvalidOperationException(ExceptionMessage);
             actor = _mapper.Map<Actor>(Model);
             _dbContext.Actors.Add(actor);
             _dbContext.SaveChanges();
