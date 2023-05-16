@@ -21,7 +21,8 @@ namespace Tests.WebApi.UnitTests.Applications.DirectorOperations.Commands.Create
 
         [InlineData("Christopher", "Nolan")]
         [InlineData("William", "")]
-        [InlineData("Fatih", "Yapici")]
+        [InlineData("", "")]
+        [InlineData("", "Taylan")]
 
         [Theory]
         public void WhenInvalidInputsAreGiven_InvalidOperationException_ShouldReturn(string name, string surname)
