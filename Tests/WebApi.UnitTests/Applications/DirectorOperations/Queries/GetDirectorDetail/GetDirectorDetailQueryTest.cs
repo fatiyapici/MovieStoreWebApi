@@ -27,7 +27,7 @@ namespace Tests.WebApi.UnitTests.Applications.DirectorOperations.Queries.GetDire
 
             FluentActions.
                 Invoking(() => query.Handle()).Should().Throw<InvalidOperationException>()
-                    .WithMessage(GetDirectorDetailById.ExceptionMessage);
+                .WithMessage(GetDirectorDetailById.ExceptionMessage);
         }
 
         [Fact]
@@ -51,8 +51,7 @@ namespace Tests.WebApi.UnitTests.Applications.DirectorOperations.Queries.GetDire
             GetDirectorDetailById query = new GetDirectorDetailById(_context, _mapper);
             query.DirectorId = director.Id;
 
-            FluentActions.
-                Invoking(() => query.Handle()).Invoke();
+            FluentActions.Invoking(() => query.Handle()).Invoke();
         }
     }
 }

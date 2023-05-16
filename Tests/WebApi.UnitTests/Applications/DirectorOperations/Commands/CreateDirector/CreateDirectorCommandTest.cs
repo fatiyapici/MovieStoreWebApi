@@ -41,8 +41,8 @@ namespace Tests.WebApi.UnitTests.Applications.DirectorOperations.Commands.Create
             command.Model = new CreateDirectorModel() { Name = person.Name, Surname = person.Surname };
 
             FluentActions.
-            Invoking(() => command.Handle()).Should().Throw<InvalidOperationException>()
-            .And.Message.Should().Be(CreateDirectorCommand.ExceptionMessage);
+                Invoking(() => command.Handle()).Should().Throw<InvalidOperationException>()
+                .And.Message.Should().Be(CreateDirectorCommand.ExceptionMessage);
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Tests.WebApi.UnitTests.Applications.DirectorOperations.Commands.Delete
 
             FluentActions.
                 Invoking(() => command.Handle()).Should().Throw<InvalidOperationException>()
-                    .And.Message.Should().Be(DeleteDirectorCommand.ExceptionMessage);
+                .And.Message.Should().Be(DeleteDirectorCommand.ExceptionMessage);
         }
     }
 }
