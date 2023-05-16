@@ -69,7 +69,7 @@ public class DirectorController : ControllerBase
     public IActionResult DeleteDirector(int id)
     {
         DeleteDirectorCommand command = new DeleteDirectorCommand(_context);
-        command.Id = id;
+        command.DirectorId = id;
         DeleteDirectorCommandValidator validator = new DeleteDirectorCommandValidator();
         validator.ValidateAndThrow(command);
         command.Handle();

@@ -6,7 +6,7 @@ namespace MovieStoreWebApi.Applications.DirectorOperations.Commands.DeleteDirect
     {
         public DeleteDirectorCommandValidator()
         {
-            RuleFor(command => command.Id).NotEmpty();
+            RuleFor(command => command.DirectorId).NotEmpty();
         }
     }
 }
