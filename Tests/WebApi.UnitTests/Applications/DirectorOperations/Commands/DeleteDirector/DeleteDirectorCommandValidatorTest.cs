@@ -39,9 +39,9 @@ namespace Tests.WebApi.UnitTests.Applications.DirectorOperations.Commands.Delete
 
             DeleteDirectorCommandValidator validator = new DeleteDirectorCommandValidator();
             var result = validator.Validate(command);
+            result.Errors.Count.Should().Be(0);
 
             FluentActions.Invoking(() => command.Handle()).Invoke();
-            result.Errors.Count.Should().Be(0);
         }
     }
 }
