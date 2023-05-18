@@ -7,7 +7,7 @@ namespace MovieStoreWebApi.Applications.GenreOperations.Commands.GenreDirector
     {
         public DeleteGenreCommandValidator()
         {
-            RuleFor(command => command.Id).NotEmpty();
+            RuleFor(command => command.GenreId).NotEmpty().GreaterThan(0);
         }
     }
 }

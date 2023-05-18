@@ -4,18 +4,20 @@ namespace MovieStoreWebApi.Applications.GenreOperations.Commands.DeleteGenre
 {
     public class DeleteGenreCommand
     {
-        public int Id { get; set; }
+        public int GenreId { get; set; }
         private readonly IMovieStoreDbContext _context;
+        public const string ExceptionMessage = "Tür bulunamadi.";
+
         public DeleteGenreCommand(IMovieStoreDbContext context)
         {
             _context = context;
         }
         public void Handle()
         {
-            var genre = _context.Genres.Find(Id);
+            var genre = _context.Genres.Find(GenreId);
             if (genre is null)
             {
-                throw new InvalidOperationException("Tür bulunamadi.");
+                throw new InvalidOperationException(ExceptionMessage);
             }
             _context.Genres.Remove(genre);
             _context.SaveChanges();
