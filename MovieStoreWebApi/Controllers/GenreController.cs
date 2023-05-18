@@ -49,7 +49,7 @@ public class GenreController : ControllerBase
     [HttpPost]
     public IActionResult AddGenre([FromBody] CreateGenreViewModel newGenre)
     {
-        var genre = _mapper.Map<Genre>(newGenre);
+        var genre = _mapper.Map<CreateGenreViewModel>(newGenre);
         CreateGenreCommand command = new CreateGenreCommand(_context, _mapper);
         command.Model = genre;
         CreateGenreCommandValidator validator = new CreateGenreCommandValidator();
@@ -75,7 +75,7 @@ public class GenreController : ControllerBase
     public IActionResult DeleteGenre(int id)
     {
         DeleteGenreCommand command = new DeleteGenreCommand(_context);
-        command.Id = id;
+        command.GenreId = id;
         DeleteGenreCommandValidator validator = new DeleteGenreCommandValidator();
         validator.ValidateAndThrow(command);
         command.Handle();
