@@ -6,6 +6,8 @@ namespace MovieStoreWebApi.Applications.ActorOperations.Commands.DeleteActor
     {
         public int ActorId { get; set; }
         private readonly IMovieStoreDbContext _context;
+        public const string ExceptionMessage = "Oyuncu bulunamadi.";
+
         public DeleteActorCommand(IMovieStoreDbContext context)
         {
             _context = context;
@@ -15,7 +17,7 @@ namespace MovieStoreWebApi.Applications.ActorOperations.Commands.DeleteActor
             var actor = _context.Actors.Find(ActorId);
             if (actor is null)
             {
-                throw new InvalidOperationException("Oyuncu bulunamadi.");
+                throw new InvalidOperationException(ExceptionMessage);
             }
             _context.Actors.Remove(actor);
             _context.SaveChanges();
