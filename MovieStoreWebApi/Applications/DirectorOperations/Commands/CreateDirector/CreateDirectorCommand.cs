@@ -7,6 +7,8 @@ namespace MovieStoreWebApi.Applications.DirectorOperations.Commands.CreateDirect
     {
         public CreateDirectorModel Model { get; set; }
         private readonly IMovieStoreDbContext _context;
+        public const string ExceptionMessage = "Yönetmen zaten mevcut.";
+
         public CreateDirectorCommand(IMovieStoreDbContext context, AutoMapper.IMapper _mapper)
         {
             _context = context;
@@ -16,7 +18,7 @@ namespace MovieStoreWebApi.Applications.DirectorOperations.Commands.CreateDirect
             var director = _context.Directors.SingleOrDefault(x => x.Person.Name == Model.Name && x.Person.Surname == Model.Surname);
             if (director != null)
             {
-                throw new InvalidOperationException("Yönetmen zaten mevcut.");
+                throw new InvalidOperationException(ExceptionMessage);
             }
             director = new Director();
             director.Person = new Person()

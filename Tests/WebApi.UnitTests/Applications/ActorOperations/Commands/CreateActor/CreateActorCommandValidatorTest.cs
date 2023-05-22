@@ -6,7 +6,11 @@ using Tests.WebApi.UnitTests.TestSetup;
 using Xunit;
 using static MovieStoreWebApi.Applications.ActorOperations.Commands.CreateActor.CreateActorCommand;
 
+<<<<<<< HEAD:Tests/WebApi.UnitTests/Applications/ActorOperations/CreateActor/CreateActorCommandValidatorTest.cs
+namespace Tests.WebApi.UnitTests.Applications.DirectorOperations.CreateActor
+=======
 namespace Tests.WebApi.UnitTests.Applications.ActorOperations.Commands.CreateActor
+>>>>>>> main:Tests/WebApi.UnitTests/Applications/ActorOperations/Commands/CreateActor/CreateActorCommandValidatorTest.cs
 {
     public class CreateActorCommandValidatorTest : IClassFixture<CommonTestFixture>
     {
