@@ -32,7 +32,7 @@ namespace Tests.WebApi.UnitTests.Applications.GenreOperations.Commands.CreateGen
             CreateGenreCommand command = new CreateGenreCommand(null, null);
             command.Model = new CreateGenreViewModel()
             {
-                Name = name,
+                Name = name
             };
 
             CreateGenreCommandValidator validator = new CreateGenreCommandValidator();
@@ -45,9 +45,10 @@ namespace Tests.WebApi.UnitTests.Applications.GenreOperations.Commands.CreateGen
         public void WhenValidInputAreGiven_Validator_ShouldNotBeReturnError()
         {
             CreateGenreCommand command = new CreateGenreCommand(null, null);
+            
             command.Model = new CreateGenreViewModel()
             {
-                Name = "Horror",
+                Name = "Horror"
             };
 
             CreateGenreCommandValidator validator = new CreateGenreCommandValidator();
@@ -60,6 +61,7 @@ namespace Tests.WebApi.UnitTests.Applications.GenreOperations.Commands.CreateGen
         public void WhenValidInputsAreGiven_Movie_ShouldBeCreated()
         {
             CreateGenreCommand command = new CreateGenreCommand(_context, _mapper);
+
             CreateGenreViewModel model = new CreateGenreViewModel()
             {
                 Name = "Thriller"
