@@ -25,7 +25,7 @@ namespace Tests.WebApi.UnitTests.Applications.GenreOperations.Queries.GetGenreDe
         public void WhenInvalidInputAreGiven_Validator_ShouldBeReturnErrors(int id)
         {
             GetGenreDetailById query = new GetGenreDetailById(null);
-            query.GenreId = id;
+            query.Id = id;
 
             GetGenreDetailByIdValidator validator = new GetGenreDetailByIdValidator();
             var result = validator.Validate(query);

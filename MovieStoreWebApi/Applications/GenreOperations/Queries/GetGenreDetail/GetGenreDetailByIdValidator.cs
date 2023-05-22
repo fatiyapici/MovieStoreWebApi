@@ -6,7 +6,7 @@ namespace MovieStoreWebApi.Applications.GenreOperations.Queries.GetGenreDetailBy
     {
         public GetGenreDetailByIdValidator()
         {
-            RuleFor(x => x.GenreId).NotEmpty().WithMessage("Genre id boş olamaz.");
+            RuleFor(x => x.Id).NotEmpty().WithMessage("Genre id boş olamaz.");
         }
     }
 }

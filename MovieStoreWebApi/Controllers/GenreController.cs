@@ -38,7 +38,7 @@ public class GenreController : ControllerBase
     public IActionResult GetGenreById(int id)
     {
         GetGenreDetailById query = new GetGenreDetailById(_context);
-        query.GenreId = id;
+        query.Id = id;
         GetGenreDetailByIdValidator validator = new GetGenreDetailByIdValidator();
         validator.ValidateAndThrow(query);
         var result = query.Handle();

@@ -21,7 +21,7 @@ namespace Tests.WebApi.UnitTests.Applications.GenreOperations.Queries.GetGenreDe
         {
             GetGenreDetailById query = new GetGenreDetailById(_context);
 
-            query.GenreId = 3;
+            query.Id = 3;
 
             FluentActions.
                 Invoking(() => query.Handle()).Should().Throw<InvalidOperationException>()
@@ -39,7 +39,7 @@ namespace Tests.WebApi.UnitTests.Applications.GenreOperations.Queries.GetGenreDe
             _context.SaveChanges();
 
             GetGenreDetailById query = new GetGenreDetailById(_context);
-            query.GenreId = genre.Id;
+            query.Id = genre.Id;
 
             FluentActions.
                 Invoking(() => query.Handle()).Invoke();
