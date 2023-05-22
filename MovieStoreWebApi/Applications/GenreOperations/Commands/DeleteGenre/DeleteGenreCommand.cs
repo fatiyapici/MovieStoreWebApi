@@ -5,10 +5,9 @@ namespace MovieStoreWebApi.Applications.GenreOperations.Commands.DeleteGenre
     public class DeleteGenreCommand
     {
         public int Id { get; set; }
+        public const string ExceptionMessage = "Tür bulunamadi.";
 
         private readonly IMovieStoreDbContext _context;
-        
-        public const string ExceptionMessage = "Tür bulunamadi.";
 
         public DeleteGenreCommand(IMovieStoreDbContext context)
         {
