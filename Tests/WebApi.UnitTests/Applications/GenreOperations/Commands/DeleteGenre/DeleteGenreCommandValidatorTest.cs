@@ -27,7 +27,7 @@ namespace Tests.WebApi.UnitTests.Applications.GenreOperations.Commands.DeleteGen
         public void WhenInvalidInputAreGiven_Validator_ShouldBeReturnErrors(string name, int genreId)
         {
             DeleteGenreCommand command = new DeleteGenreCommand(null);
-            command.GenreId = genreId;
+            command.Id = genreId;
 
             DeleteGenreCommandValidator validator = new DeleteGenreCommandValidator();
             var result = validator.Validate(command);
@@ -46,7 +46,7 @@ namespace Tests.WebApi.UnitTests.Applications.GenreOperations.Commands.DeleteGen
             _context.Genres.Add(genre);
             _context.SaveChanges();
 
-            command.GenreId = genre.Id;
+            command.Id = genre.Id;
 
             DeleteGenreCommandValidator validator = new DeleteGenreCommandValidator();
             var result = validator.Validate(command);

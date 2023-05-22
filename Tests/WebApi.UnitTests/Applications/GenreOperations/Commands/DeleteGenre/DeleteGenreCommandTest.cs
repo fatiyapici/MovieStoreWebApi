@@ -19,7 +19,7 @@ namespace Tests.WebApi.UnitTests.Applications.GenreOperations.Commands.DeleteGen
         public void WhenToBeDeletedGenreIsNotFound_InvalidOperationException_ShouldReturn()
         {
             DeleteGenreCommand command = new DeleteGenreCommand(_context);
-            command.GenreId = 5;
+            command.Id = 5;
 
             FluentActions.
                 Invoking(() => command.Handle()).Should().Throw<InvalidOperationException>()

@@ -75,7 +75,7 @@ public class GenreController : ControllerBase
     public IActionResult DeleteGenre(int id)
     {
         DeleteGenreCommand command = new DeleteGenreCommand(_context);
-        command.GenreId = id;
+        command.Id = id;
         DeleteGenreCommandValidator validator = new DeleteGenreCommandValidator();
         validator.ValidateAndThrow(command);
         command.Handle();
