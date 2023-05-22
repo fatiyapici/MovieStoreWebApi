@@ -1,3 +1,4 @@
+using AutoMapper;
 using MovieStoreWebApi.DbOperations;
 
 namespace MovieStoreWebApi.Applications.GenreOperations.Queries.GetGenreDetailById
@@ -6,6 +7,7 @@ namespace MovieStoreWebApi.Applications.GenreOperations.Queries.GetGenreDetailBy
     {
         public int GenreId { get; set; }
         private readonly IMovieStoreDbContext _context;
+        public const string ExceptionMessage = "Film kategorisi bulunamadi.";
         public GetGenreDetailById(IMovieStoreDbContext context)
         {
             _context = context;
@@ -15,7 +17,7 @@ namespace MovieStoreWebApi.Applications.GenreOperations.Queries.GetGenreDetailBy
             var genre = _context.Genres.SingleOrDefault(x => x.Id == GenreId);
             if (genre is null)
             {
-                return null;
+                throw new InvalidOperationException(ExceptionMessage);
             }
             var genreViewModel = new GenreDetailViewModel
             {
