@@ -16,6 +16,7 @@ namespace Tests.WebApi.UnitTests.Applications.GenreOperations.Queries.GetGenreDe
         {
             _context = testFixture.Context;
         }
+        
         [Fact]
         public void WhenGenreIsNotFound_InvalidOperationException_ShouldReturn()
         {
