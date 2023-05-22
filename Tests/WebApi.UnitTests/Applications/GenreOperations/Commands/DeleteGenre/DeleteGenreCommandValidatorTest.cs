@@ -11,6 +11,7 @@ namespace Tests.WebApi.UnitTests.Applications.GenreOperations.Commands.DeleteGen
     public class DeleteGenreCommandValidatorTest : IClassFixture<CommonTestFixture>
     {
         private readonly MovieStoreDbContext _context;
+
         public DeleteGenreCommandValidatorTest(CommonTestFixture testFixture)
         {
             _context = testFixture.Context;
@@ -39,6 +40,7 @@ namespace Tests.WebApi.UnitTests.Applications.GenreOperations.Commands.DeleteGen
         public void WhenValidInputsAreGiven_Genre_ShouldBeDeleted()
         {
             DeleteGenreCommand command = new DeleteGenreCommand(_context);
+
             var genre = new Genre()
             {
                 Name = "WhenValidInputsAreGiven_Genre_ShouldBeDeleted",
