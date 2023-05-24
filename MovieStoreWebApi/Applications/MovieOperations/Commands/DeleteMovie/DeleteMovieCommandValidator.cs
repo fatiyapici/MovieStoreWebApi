@@ -6,7 +6,7 @@ namespace MovieStoreWebApi.Applications.MovieOperations.Commands.DeleteMovie
     {
         public DeleteMovieCommandValidator()
         {
-            RuleFor(command => command.MovieId).GreaterThan(0);
+            RuleFor(command => command.Id).GreaterThan(0);
         }
     }
 }

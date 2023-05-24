@@ -72,7 +72,7 @@ public class MovieController : ControllerBase
     public IActionResult DeleteMovie(int id)
     {
         DeleteMovieCommand command = new DeleteMovieCommand(_context);
-        command.MovieId = id;
+        command.Id = id;
         DeleteMovieCommandValidator validator = new DeleteMovieCommandValidator();
         validator.ValidateAndThrow(command);
         command.Handle();
