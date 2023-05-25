@@ -38,7 +38,7 @@ public class GenreController : ControllerBase
     public IActionResult GetGenreById(int id)
     {
         GetGenreDetailById query = new GetGenreDetailById(_context);
-        query.GenreId = id;
+        query.Id = id;
         GetGenreDetailByIdValidator validator = new GetGenreDetailByIdValidator();
         validator.ValidateAndThrow(query);
         var result = query.Handle();
@@ -49,7 +49,7 @@ public class GenreController : ControllerBase
     [HttpPost]
     public IActionResult AddGenre([FromBody] CreateGenreViewModel newGenre)
     {
-        var genre = _mapper.Map<Genre>(newGenre);
+        var genre = _mapper.Map<CreateGenreViewModel>(newGenre);
         CreateGenreCommand command = new CreateGenreCommand(_context, _mapper);
         command.Model = genre;
         CreateGenreCommandValidator validator = new CreateGenreCommandValidator();

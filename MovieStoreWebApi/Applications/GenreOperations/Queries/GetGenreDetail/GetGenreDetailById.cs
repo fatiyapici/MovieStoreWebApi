@@ -4,26 +4,34 @@ namespace MovieStoreWebApi.Applications.GenreOperations.Queries.GetGenreDetailBy
 {
     public class GetGenreDetailById
     {
-        public int GenreId { get; set; }
+        public int Id { get; set; }
+        public const string ExceptionMessage = "Film kategorisi bulunamadi.";
+
         private readonly IMovieStoreDbContext _context;
+
         public GetGenreDetailById(IMovieStoreDbContext context)
         {
             _context = context;
         }
+
         public GenreDetailViewModel Handle()
         {
-            var genre = _context.Genres.SingleOrDefault(x => x.Id == GenreId);
+            var genre = _context.Genres.SingleOrDefault(x => x.Id == Id);
+
             if (genre is null)
             {
-                return null;
+                throw new InvalidOperationException(ExceptionMessage);
             }
+
             var genreViewModel = new GenreDetailViewModel
             {
                 Id = genre.Id,
                 Name = genre.Name,
             };
+
             return genreViewModel;
         }
+
         public class GenreDetailViewModel
         {
             public int Id { get; set; }
