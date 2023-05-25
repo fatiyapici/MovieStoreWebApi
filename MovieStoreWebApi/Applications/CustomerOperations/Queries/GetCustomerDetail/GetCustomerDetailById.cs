@@ -7,6 +7,8 @@ namespace MovieStoreWebApi.Applications.CustomerOperations.GetCustomerDetail
     public class GetCustomerDetailById
     {
         public int CustomerId { get; set; }
+        public const string ExceptionMessage = "Müşteri bulunamadi.";
+
         private readonly IMovieStoreDbContext _context;
         private readonly IMapper _mapper;
 
@@ -18,12 +20,12 @@ namespace MovieStoreWebApi.Applications.CustomerOperations.GetCustomerDetail
         public GetCustomerDetailViewModel Handle()
         {
             var customer = _context.Customers
-            .Include(g => g.CustomerOrders).ThenInclude(g => g.Order).ThenInclude(o=>o.Movie)
+            .Include(g => g.CustomerOrders).ThenInclude(g => g.Order).ThenInclude(o => o.Movie)
             .Include(g => g.FavoriteGenres).ThenInclude(g => g.Genre)
             .SingleOrDefault(x => x.Id == CustomerId);
             if (customer is null)
             {
-                throw new InvalidOperationException("Müşteri bulunamadi.");
+                throw new InvalidOperationException(ExceptionMessage);
             }
             GetCustomerDetailViewModel vm = _mapper.Map<GetCustomerDetailViewModel>(customer);
             return vm;
