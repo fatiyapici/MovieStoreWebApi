@@ -6,9 +6,9 @@ namespace MovieStoreWebApi.Applications.MovieOperations.Queries.GetMovieDetail
 {
     public class GetMovieDetailQuery
     {
-        public int MovieId { get; set; }
         public const string ExceptionMessage = "Film Bulunamadi.";
-
+        public int MovieId { get; set; }
+        
         private readonly IMovieStoreDbContext _dbContext;
         private readonly IMapper _mapper;
 
