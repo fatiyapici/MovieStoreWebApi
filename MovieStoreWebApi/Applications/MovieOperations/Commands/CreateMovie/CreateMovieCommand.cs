@@ -6,8 +6,8 @@ namespace MovieStoreWebApi.Applications.MovieOperations.Commands.CreateMovie
 {
     public class CreateMovieCommand
     {
-        public CreateMovieModel Model { get; set; }
         public const string ExceptionMessage = "Film zaten mevcut.";
+        public CreateMovieModel Model { get; set; }
 
         private readonly IMovieStoreDbContext _dbContext;
         private readonly IMapper _mapper;
@@ -23,6 +23,7 @@ namespace MovieStoreWebApi.Applications.MovieOperations.Commands.CreateMovie
             var movie = _dbContext.Movies.SingleOrDefault(x => x.Name == Model.Name);
             if (movie != null)
                 throw new InvalidOperationException(ExceptionMessage);
+
             movie = _mapper.Map<Movie>(Model);
 
             if (Model.Directors != null)

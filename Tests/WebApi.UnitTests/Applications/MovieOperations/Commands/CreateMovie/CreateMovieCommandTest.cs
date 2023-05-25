@@ -19,6 +19,7 @@ namespace Tests.WebApi.UnitTests.Applications.MovieOperations.Commands.CreateMov
             _context = testFixture.Context;
             _mapper = testFixture.Mapper;
         }
+
         [Fact]
         public void WhenAlreadyExistMovieIsGiven_InvalidOperationException_ShouldReturn()
         {
@@ -35,8 +36,8 @@ namespace Tests.WebApi.UnitTests.Applications.MovieOperations.Commands.CreateMov
             command.Model = new CreateMovieModel() { Name = movie.Name };
 
             FluentActions.
-            Invoking(() => command.Handle()).Should().Throw<InvalidOperationException>()
-            .And.Message.Should().Be(ExceptionMessage);
+                Invoking(() => command.Handle()).Should().Throw<InvalidOperationException>()
+                .And.Message.Should().Be(ExceptionMessage);
         }
     }
 }

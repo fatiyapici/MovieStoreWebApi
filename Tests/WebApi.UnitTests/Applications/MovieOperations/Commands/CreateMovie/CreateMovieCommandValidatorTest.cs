@@ -1,6 +1,5 @@
 using AutoMapper;
 using FluentAssertions;
-using MovieStoreWebApi.Applications.DirectorOperations.Commands.CreateDirector;
 using MovieStoreWebApi.Applications.MovieOperations.Commands.CreateMovie;
 using MovieStoreWebApi.DbOperations;
 using Tests.WebApi.UnitTests.TestSetup;
