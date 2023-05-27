@@ -6,14 +6,18 @@ namespace MovieStoreWebApi.Applications.MovieOperations.Queries.GetMovieDetail
 {
     public class GetMovieDetailQuery
     {
+        public const string ExceptionMessage = "Film Bulunamadi.";
+        public int MovieId { get; set; }
+        
         private readonly IMovieStoreDbContext _dbContext;
         private readonly IMapper _mapper;
-        public int MovieId { get; set; }
+
         public GetMovieDetailQuery(IMovieStoreDbContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
             _mapper = mapper;
         }
+        
         public MovieDetailViewModel Handle()
         {
             var movie = _dbContext.Movies
@@ -22,11 +26,14 @@ namespace MovieStoreWebApi.Applications.MovieOperations.Queries.GetMovieDetail
                 .Include(d => d.Directors).ThenInclude(d => d.Director).ThenInclude(d => d.Person)
                 .Where(movie => movie.Id == MovieId)
                 .SingleOrDefault();
+
             if (movie is null)
             {
-                throw new InvalidOperationException("Film Bulunamadi.");
+                throw new InvalidOperationException(ExceptionMessage);
             }
+
             MovieDetailViewModel vm = _mapper.Map<MovieDetailViewModel>(movie);
+
             return vm;
         }
     }
@@ -34,8 +41,8 @@ namespace MovieStoreWebApi.Applications.MovieOperations.Queries.GetMovieDetail
     public class MovieDetailViewModel
     {
         public string Name { get; set; }
-        public decimal Price { get; set; }
         public string ReleaseDate { get; set; }
+        public decimal Price { get; set; }
         public List<string> Directors { get; set; }
         public virtual List<string> Genres { get; set; }
         public virtual List<string> Actors { get; set; }

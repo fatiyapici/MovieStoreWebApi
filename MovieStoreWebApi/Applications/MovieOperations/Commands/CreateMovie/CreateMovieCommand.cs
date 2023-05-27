@@ -6,9 +6,12 @@ namespace MovieStoreWebApi.Applications.MovieOperations.Commands.CreateMovie
 {
     public class CreateMovieCommand
     {
+        public const string ExceptionMessage = "Film zaten mevcut.";
         public CreateMovieModel Model { get; set; }
+
         private readonly IMovieStoreDbContext _dbContext;
         private readonly IMapper _mapper;
+
         public CreateMovieCommand(IMovieStoreDbContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
@@ -19,7 +22,8 @@ namespace MovieStoreWebApi.Applications.MovieOperations.Commands.CreateMovie
         {
             var movie = _dbContext.Movies.SingleOrDefault(x => x.Name == Model.Name);
             if (movie != null)
-                throw new InvalidOperationException("Film zaten mevcut.");
+                throw new InvalidOperationException(ExceptionMessage);
+
             movie = _mapper.Map<Movie>(Model);
 
             if (Model.Directors != null)
@@ -59,7 +63,7 @@ namespace MovieStoreWebApi.Applications.MovieOperations.Commands.CreateMovie
         {
             public string Name { get; set; }
             public decimal Price { get; set; }
-            public string ReleaseDate { get; set; }
+            public DateTime ReleaseDate { get; set; }
             public List<int> Directors { get; set; }
             public List<int> Genres { get; set; }
             public List<int> Actors { get; set; }
