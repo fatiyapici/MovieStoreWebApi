@@ -36,7 +36,7 @@ namespace Tests.WebApi.UnitTests.Applications.CustomerOperations.Commands.Update
 
             command.Model = new UpdateCustomerViewModel()
             {
-                Email = "fati@gmail.com",
+                Email = "yapici@gmail.com",
                 Password = "123456"
             };
 

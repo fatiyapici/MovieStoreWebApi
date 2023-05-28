@@ -27,9 +27,7 @@ namespace Tests.WebApi.UnitTests.Applications.CustomerOperations.Commands.Update
         [Theory]
         public void WhenInvalidInputAreGiven_Validator_ShouldBeReturnErrors(string email, string password)
         {
-            IMovieStoreDbContext dbContext = _context;
-            int customerId = 1;
-            UpdateCustomerCommand command = new UpdateCustomerCommand(dbContext, customerId);
+            UpdateCustomerCommand command = new UpdateCustomerCommand(null, null);
 
             UpdateCustomerViewModel model = new UpdateCustomerViewModel();
             model.Email = email;

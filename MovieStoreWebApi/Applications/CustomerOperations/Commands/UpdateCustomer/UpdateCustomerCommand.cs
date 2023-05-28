@@ -4,11 +4,11 @@ namespace MovieStoreWebApi.Applications.CustomerOperations.UpdateCustomer
 {
     public class UpdateCustomerCommand
     {
-        public UpdateCustomerViewModel Model { get; set; }
-        public int Id { get; set; }
         public const string ExceptionMessageFound = "Guncellenecek musteri bulunamadi.";
         public const string ExceptionMessageEmail = "Guncellenecek musteri maili yanlis.";
         public const string ExceptionMessagePassword = "Guncellenecek musteri sifresi yanlis.";
+        public UpdateCustomerViewModel Model { get; set; }
+        public int Id { get; set; }
 
         private readonly IMovieStoreDbContext _context;
 
@@ -28,7 +28,7 @@ namespace MovieStoreWebApi.Applications.CustomerOperations.UpdateCustomer
                 throw new InvalidOperationException(ExceptionMessagePassword);
 
             // For Update Mail: customer.Email = Model.Email != default ? Model.Email : customer.Email;
-            customer.Password = Model.Password != default ? Model.Password : customer.Password;
+            customer.Password = customer.Password != Model.Password ? Model.NewPassword : customer.Password;
 
             _context.SaveChanges();
         }
@@ -37,6 +37,7 @@ namespace MovieStoreWebApi.Applications.CustomerOperations.UpdateCustomer
             public int Id { get; set; }
             public string Email { get; set; }
             public string Password { get; set; }
+            public string NewPassword { get; set; }
         }
     }
 }
