@@ -7,9 +7,9 @@ namespace WebApi.Applications.CustomerOperations.Commands.CreateToken
 {
     public class CreateTokenCommand
     {
-        public CreateTokenModel Model { get; set; }
         public const string ExceptionMessage = "Kullanici adi-sifre hatali.";
-
+        public CreateTokenModel Model { get; set; }
+        
         private readonly IMovieStoreDbContext _dbContext;
         private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
@@ -23,21 +23,21 @@ namespace WebApi.Applications.CustomerOperations.Commands.CreateToken
 
         public Token Handle()
         {
-            var user = _dbContext.Customers.FirstOrDefault(x => x.Email == Model.Email && x.Password == Model.Password);
-            if (user is not null)
-            {
-                MovieStoreWebApi.TokenOperations.Models.TokenHandler handler = new MovieStoreWebApi.TokenOperations.Models.TokenHandler(_configuration);
-                Token token = handler.CreateAccessToken(user);
+            var customer = _dbContext.Customers.FirstOrDefault(x => x.Email == Model.Email && x.Password == Model.Password);
 
-                user.RefreshToken = token.RefreshToken;
-                user.RefreshTokenExpireDate = token.Expiration.AddMinutes(5);
-                _dbContext.SaveChanges();
-                
-                return token;
-            }
+            if (customer is null)
+                throw new InvalidOperationException(ExceptionMessage);
+
             else
             {
-                throw new InvalidOperationException(ExceptionMessage);
+                TokenHandler handler = new TokenHandler(_configuration);
+                Token token = handler.CreateAccessToken(customer);
+
+                customer.RefreshToken = token.RefreshToken;
+                customer.RefreshTokenExpireDate = token.Expiration.AddMinutes(5);
+                _dbContext.SaveChanges();
+
+                return token;
             }
         }
 
