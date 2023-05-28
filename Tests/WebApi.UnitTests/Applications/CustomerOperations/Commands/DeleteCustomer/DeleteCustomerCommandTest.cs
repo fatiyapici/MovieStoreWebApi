@@ -45,7 +45,7 @@ namespace Tests.WebApi.UnitTests.Applications.CustomerOperations.Commands.Delete
             DeleteCustomerCommand command = new DeleteCustomerCommand(_context, customer.Email, customer.Password);
             command.Model = new DeleteCustomerModel()
             {
-                Email = "burak@gmail.com",
+                Email = "hassemercioglu@gmail.com",
                 Password = "123456"
             };
 

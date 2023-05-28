@@ -32,7 +32,7 @@ namespace Tests.WebApi.UnitTests.Applications.CustomerOperations.Commands.Delete
             command.Model = new DeleteCustomerModel()
             {
                 Email = email,
-                Password = password,
+                Password = password
             };
 
             DeleteCustomerCommandValidator validator = new DeleteCustomerCommandValidator();

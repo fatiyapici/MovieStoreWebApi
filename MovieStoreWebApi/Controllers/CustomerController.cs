@@ -80,9 +80,9 @@ public class CustomerController : ControllerBase
     public IActionResult DeleteCustomer(int id, string email, string password)
     {
         DeleteCustomerCommand command = new DeleteCustomerCommand(_context, email, password);
-        command.CustomerId = id;
-        command.CustomerEmail = email;
-        command.CustomerPassword = password;
+        command.Model.Id = id;
+        command.Model.Email = email;
+        command.Model.Password = password;
         DeleteCustomerCommandValidator validator = new DeleteCustomerCommandValidator();
         validator.ValidateAndThrow(command);
         command.Handle();
