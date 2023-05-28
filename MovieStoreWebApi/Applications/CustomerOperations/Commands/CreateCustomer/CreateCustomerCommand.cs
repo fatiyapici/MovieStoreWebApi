@@ -6,8 +6,8 @@ namespace MovieStoreWebApi.CustomerOperations.Commands.CreateCustomer
 {
     public class CreateCustomerCommand
     {
-        public CreateCustomerViewModel Model { get; set; }
         public const string ExceptionMessage = "Kullanici adi zaten mevcut.";
+        public CreateCustomerViewModel Model { get; set; }
 
         private readonly IMovieStoreDbContext _dbContext;
         private readonly IMapper _mapper;
@@ -17,14 +17,14 @@ namespace MovieStoreWebApi.CustomerOperations.Commands.CreateCustomer
             _dbContext = dbContext;
             _mapper = mapper;
         }
-        
+
         public void Handle()
         {
             var customer = _dbContext.Customers.SingleOrDefault(x => string.Equals(x.Email, Model.Email));
 
             if (customer is not null)
                 throw new InvalidOperationException(ExceptionMessage);
-            
+
             customer = _mapper.Map<Customer>(Model);
             customer.RefreshToken = "";
 
