@@ -7,6 +7,7 @@ namespace MovieStoreWebApi.Applications.CustomerOperations.GetCustomerDetail
     public class GetCustomerDetailById
     {
         public const string ExceptionMessage = "Müşteri bulunamadi.";
+        
         public int CustomerId { get; set; }
 
         private readonly IMovieStoreDbContext _context;
