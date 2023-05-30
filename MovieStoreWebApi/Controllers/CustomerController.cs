@@ -79,7 +79,7 @@ public class CustomerController : ControllerBase
     [HttpDelete("{id}")]
     public IActionResult DeleteCustomer(int id, string email, string password)
     {
-        DeleteCustomerCommand command = new DeleteCustomerCommand(_context, email, password);
+        DeleteCustomerCommand command = new DeleteCustomerCommand(_context);
         command.Model.Id = id;
         command.Model.Email = email;
         command.Model.Password = password;

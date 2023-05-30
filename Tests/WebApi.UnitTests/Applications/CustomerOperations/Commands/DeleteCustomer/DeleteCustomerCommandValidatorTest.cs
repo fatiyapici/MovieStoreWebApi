@@ -28,7 +28,7 @@ namespace Tests.WebApi.UnitTests.Applications.CustomerOperations.Commands.Delete
         [Theory]
         public void WhenInvalidInputAreGiven_Validator_ShouldBeReturnErrors(string email, string password)
         {
-            DeleteCustomerCommand command = new DeleteCustomerCommand(null, null, null);
+            DeleteCustomerCommand command = new DeleteCustomerCommand(null);
             command.Model = new DeleteCustomerModel()
             {
                 Email = email,

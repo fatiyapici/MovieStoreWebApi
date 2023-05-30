@@ -23,26 +23,7 @@ namespace Tests.WebApi.UnitTests.Applications.CustomerOperations.Commands.Delete
         [Fact]
         public void WhenDeletedCustomerIsNotExist_InvalidOperationException_ShouldReturn()
         {
-            var person = new Person()
-            {
-                Name = "Burak",
-                Surname = "Hassemercioglu"
-            };
-            _context.Persons.Add(person);
-            _context.SaveChanges();
-
-            var customer = new Customer
-            {
-                PersonId = person.Id,
-                Email = "burak@gmail.com",
-                Password = "123456",
-                RefreshToken = "",
-                RefreshTokenExpireDate = DateTime.Now.AddHours(2)
-            };
-            _context.Customers.Add(customer);
-            _context.SaveChanges();
-
-            DeleteCustomerCommand command = new DeleteCustomerCommand(_context, customer.Email, customer.Password);
+            DeleteCustomerCommand command = new DeleteCustomerCommand(_context);
             command.Model = new DeleteCustomerModel()
             {
                 Email = "hassemercioglu@gmail.com",

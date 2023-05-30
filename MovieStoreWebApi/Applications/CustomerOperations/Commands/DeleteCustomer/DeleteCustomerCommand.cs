@@ -7,15 +7,14 @@ namespace MovieStoreWebApi.Applications.CustomerOperations.DeleteCustomer
         public const string ExceptionMessageFound = "Silinecek musteri bulunamadi.";
         public const string ExceptionMessageEmail = "Silinecek musteri emaili yanlis.";
         public const string ExceptionMessagePassword = "Silinecek musteri sifresi yanlis.";
+        
         public DeleteCustomerModel Model { get; set; }
 
         private readonly IMovieStoreDbContext _dbContext;
 
-        public DeleteCustomerCommand(IMovieStoreDbContext dbContext, string email, string password)
+        public DeleteCustomerCommand(IMovieStoreDbContext dbContext)
         {
             _dbContext = dbContext;
-            email = Model.Email;
-            password = Model.Password;
         }
 
         public void Handle()
