@@ -8,6 +8,7 @@ namespace WebApi.Applications.CustomerOperations.Commands.CreateToken
     public class CreateTokenCommand
     {
         public const string ExceptionMessage = "Kullanici adi-sifre hatali.";
+        
         public CreateTokenModel Model { get; set; }
         
         private readonly IMovieStoreDbContext _dbContext;
