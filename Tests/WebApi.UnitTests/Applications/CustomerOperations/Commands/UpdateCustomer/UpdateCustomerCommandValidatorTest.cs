@@ -17,20 +17,21 @@ namespace Tests.WebApi.UnitTests.Applications.CustomerOperations.Commands.Update
             _context = testFixture.Context;
         }
 
-        [InlineData("fati@gmail.com", "123456")]
-        [InlineData("baran@gmail.com", "123456")]
-        [InlineData("fatigmail.com", "123456")]
-        [InlineData("fati@gmail.com", "12345")]
+        [InlineData("fati@gmail.com", "123456", "234567")]
+        [InlineData("baran@gmail.com", "123456", "23456")]
+        [InlineData("fatigmail.com", "123456", "234567")]
+        [InlineData("fati@gmail.com", "12345", "234567")]
 
         //Review yapılacak.
 
         [Theory]
-        public void WhenInvalidInputAreGiven_Validator_ShouldBeReturnErrors(string email, string password)
+        public void WhenInvalidInputAreGiven_Validator_ShouldBeReturnErrors(string email, string password, string newPassword)
         {
-            UpdateCustomerCommand command = new UpdateCustomerCommand(null, null);
+            UpdateCustomerCommand command = new UpdateCustomerCommand(null, 1);
 
             UpdateCustomerViewModel model = new UpdateCustomerViewModel();
             model.Email = email;
+            model.NewPassword = newPassword;
             model.Password = password;
             command.Model = model;
 

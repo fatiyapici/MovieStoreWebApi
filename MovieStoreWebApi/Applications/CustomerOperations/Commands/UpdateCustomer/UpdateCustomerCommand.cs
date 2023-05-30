@@ -7,6 +7,7 @@ namespace MovieStoreWebApi.Applications.CustomerOperations.UpdateCustomer
         public const string ExceptionMessageFound = "Guncellenecek musteri bulunamadi.";
         public const string ExceptionMessageEmail = "Guncellenecek musteri maili yanlis.";
         public const string ExceptionMessagePassword = "Guncellenecek musteri sifresi yanlis.";
+
         public UpdateCustomerViewModel Model { get; set; }
         public int Id { get; set; }
 
@@ -28,7 +29,7 @@ namespace MovieStoreWebApi.Applications.CustomerOperations.UpdateCustomer
                 throw new InvalidOperationException(ExceptionMessagePassword);
 
             // For Update Mail: customer.Email = Model.Email != default ? Model.Email : customer.Email;
-            customer.Password = customer.Password != Model.Password ? Model.NewPassword : customer.Password;
+            customer.Password = Model.NewPassword;
 
             _context.SaveChanges();
         }
