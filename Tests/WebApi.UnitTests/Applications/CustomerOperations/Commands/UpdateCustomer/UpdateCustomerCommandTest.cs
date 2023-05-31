@@ -20,19 +20,7 @@ namespace Tests.WebApi.UnitTests.Applications.CustomerOperations.Commands.Update
         [Fact]
         public void WhenUpdatedCustomerIsNotExist_InvalidOperationException_ShouldReturn()
         {
-            var customer = new Customer()
-            {
-                Name = "Fatih",
-                Surname = "Yapici",
-                Email = "fati@gmail.com",
-                Password = "123456",
-                RefreshToken = ""
-            };
-
-            _context.Customers.Add(customer);
-            _context.SaveChanges();
-
-            UpdateCustomerCommand command = new UpdateCustomerCommand(_context, customer.Id);
+            UpdateCustomerCommand command = new UpdateCustomerCommand(_context, 1);
 
             command.Model = new UpdateCustomerViewModel()
             {

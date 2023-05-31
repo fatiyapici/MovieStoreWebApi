@@ -28,14 +28,12 @@ namespace MovieStoreWebApi.Applications.CustomerOperations.UpdateCustomer
             if (customer.Password != Model.Password)
                 throw new InvalidOperationException(ExceptionMessagePassword);
 
-            // For Update Mail: customer.Email = Model.Email != default ? Model.Email : customer.Email;
             customer.Password = Model.NewPassword;
 
             _context.SaveChanges();
         }
         public class UpdateCustomerViewModel
         {
-            public int Id { get; set; }
             public string Email { get; set; }
             public string Password { get; set; }
             public string NewPassword { get; set; }
